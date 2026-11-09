@@ -122,3 +122,31 @@ def test_mixture_is_convex_and_unreliable_gate_falls_back(history):
         assert all(expert is None for expert in small.experts)
         with pytest.raises(ValueError):
             small.predict(test, probabilities * 2)
+
+
+def test_regime_backtest_uses_identical_baseline_rows(history):
+    frame, columns = make_features(history)
+    config = BacktestConfig(
+        start="2021-01-01", end="2021-02-01", train_sessions=300, min_train_sessions=250
+    )
+    dates = frame.date.drop_duplicates().sort_values()
+    gate = pd.DataFrame(
+        {
+            "date": dates,
+            "regime_0": 0.6,
+            "regime_1": 0.4,
+            "gate_reliable": True,
+            "gate_fit_end": dates - pd.Timedelta("1D"),
+        }
+    )
+    baseline, _ = backtest(frame, columns, config)
+    combined, metadata = backtest(frame, columns, config, gates={"test": gate})
+    paired = combined[combined.model.isin(baseline.model.unique())].reset_index(
+        drop=True
+    )
+    pd.testing.assert_frame_equal(baseline, paired)
+    assert set(combined.model.unique()) == set(baseline.model.unique()) | {
+        "test_mixture",
+        "test_pooled_probabilities",
+    }
+    assert len(metadata["expert_diagnostics"]) == 1
