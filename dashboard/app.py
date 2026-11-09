@@ -95,7 +95,7 @@ def chart_style(chart, height=300):
         labelColor="#7a8a9e", titleColor="#8796a8", labelFontSize=11,
         titleFontSize=10, domain=False, tickColor="#e6ebf2", gridColor="#edf1f6",
         labelPadding=9, titlePadding=12,
-    ).configure_legend(labelColor="#65788f", labelFontSize=11, title=None, orient="bottom", padding=12)
+    ).configure_legend(labelColor="#65788f", labelFontSize=11, orient="bottom", padding=12)
 
 
 def probability_tiles(probabilities):
@@ -222,7 +222,7 @@ def main():
                 with st.container(border=True):
                     st.subheader("Model leaderboard")
                     st.caption("Average QLIKE · Lower is better")
-                    graph=alt.Chart(scores).mark_bar(cornerRadiusEnd=4,size=16,color=COLORS[1]).encode(
+                    graph=alt.Chart(scores).mark_bar(cornerRadius=4,size=16,color=COLORS[1]).encode(
                         x=alt.X("QLIKE:Q",title=None),y=alt.Y("Model:N",sort="x",title=None,axis=alt.Axis(labelLimit=230)),
                         tooltip=["Model:N",alt.Tooltip("QLIKE:Q",format=".4f")],
                     )
@@ -294,7 +294,7 @@ def main():
                         total=chosen.weighted_variance.sum()
                         chosen["Share"]=chosen.weighted_variance/total if total>0 else 0.
                         chosen["State"]=chosen.state.map(lambda s:f"State {int(s)}")
-                        graph=alt.Chart(chosen).mark_bar(cornerRadiusEnd=4,size=24).encode(
+                        graph=alt.Chart(chosen).mark_bar(cornerRadius=4,size=24).encode(
                             x=alt.X("Share:Q",axis=alt.Axis(format="%"),title=None,scale=alt.Scale(domain=[0,1])),
                             y=alt.Y("State:N",title=None),color=alt.Color("State:N",scale=alt.Scale(range=COLORS),legend=None),
                             tooltip=["State:N",alt.Tooltip("Share:Q",format=".1%")],
