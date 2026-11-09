@@ -150,3 +150,38 @@ def test_regime_backtest_uses_identical_baseline_rows(history):
         "test_pooled_probabilities",
     }
     assert len(metadata["expert_diagnostics"]) == 1
+
+
+def test_macro_pipeline_keeps_rows_and_records_vintages(history, tmp_path):
+    import json
+
+    from regimecast.data.macro import save_vintages
+    from regimecast.data.prices import snapshot
+    from regimecast.pipeline import run_backtest
+
+    price_path = snapshot(
+        history, tmp_path / "data", provider="test", adjustment="synthetic"
+    )
+    macro = pd.DataFrame(
+        {
+            "series": ["DGS2", "DGS10"],
+            "observation_date": pd.to_datetime(["2018-01-02"] * 2),
+            "vintage_date": pd.to_datetime(["2018-01-03"] * 2),
+            "value": [2.0, 3.0],
+        }
+    )
+    macro_path = save_vintages(
+        macro, tmp_path / "data", provider="synthetic test fixture"
+    )
+    config = BacktestConfig(
+        start="2021-01-01", end="2021-02-01", train_sessions=300, min_train_sessions=250
+    )
+    directory = run_backtest(
+        price_path, tmp_path / "runs", config, macro_snapshot=macro_path
+    )
+    ledger = pd.read_parquet(directory / "predictions.parquet")
+    assert set(ledger.model) == {"historical", "ewma", "har", "pooled_macro"}
+    metadata = json.loads((directory / "run.json").read_text(encoding="utf-8"))
+    assert len(metadata["macro"]["sha256"]) == 64
+    assert any(name.startswith("macro_") for name in metadata["features"])
+    assert ledger.groupby("model").size().nunique() == 1

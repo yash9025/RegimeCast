@@ -67,3 +67,17 @@ No hyperparameters have been tuned. The fixed development defaults leave 2024 on
 Each experiment regenerates a causal historical probability archive using past-only monthly gate refits. State features are aggregate volatility, drawdown, correlation and returns. HMM probabilities use forward filtering. States align to prior training centers using minimum-distance assignment; state IDs are descriptive, not independently observed economic labels. Archives and fit diagnostics accompany each run.
 
 Experts use soft probability sample weights and share the pooled learner family. The mixture combines variance forecasts, and falls back to pooled predictions for unreliable current gates or undersupported experts. Nonconvergence is reported, not suppressed. The extra pooled-plus-probabilities model tests whether gates help without separate experts. Results still require matched, time-dependent uncertainty analysis.
+
+## Free historical macro data and evidence
+
+Create a free FRED API key and store it locally as `FRED_API_KEY=...` in `.env`. The file is ignored by Git. Never paste keys into chat or commit them. Alternatively set the environment variable. All computation and storage are local; no paid services are required.
+
+```powershell
+.\.venv\Scripts\regimecast ingest-macro --start 2005-01-01 --end 2026-11-09
+.\.venv\Scripts\regimecast backtest data/raw/PRICE_SNAPSHOT --macro-snapshot data/macro/MACRO_SNAPSHOT
+.\.venv\Scripts\regimecast analyze artifacts/GMM_RUN artifacts/HMM_RUN --output reports/MY_NEW_ANALYSIS
+```
+
+The macro adapter requests sparse new/revised observations in four-year batches, preserving the release dates encoded by FRED. Values become usable on the first trading session strictly after the vintage date. A revision to an older month never displaces a newer observation. Missing macro values stay missing with indicators; boosting handles them natively. Regime gate features remain price-only for the initial controlled macro ablation.
+
+Analysis uses paired date-level QLIKE differences with all assets retained together in circular moving blocks (5/21/63 sessions). Reports include annual results, training-defined stress slices, every-fifth-session non-overlapping targets and worst errors. Confidence intervals are exploratory and unadjusted for multiple comparisons. Existing full-period development evidence is in [reports/development-analysis](reports/development-analysis).

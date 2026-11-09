@@ -16,7 +16,13 @@ from regimecast.features.prices import make_features
 
 
 def run_backtest(
-    snapshot: Path, output: Path, config: BacktestConfig, *, gate_kind=None, states=3
+    snapshot: Path,
+    output: Path,
+    config: BacktestConfig,
+    *,
+    gate_kind=None,
+    states=3,
+    macro_snapshot=None,
 ):
     if config.end > "2024-01-01":
         raise ValueError(
@@ -24,6 +30,17 @@ def run_backtest(
         )
     prices = load_snapshot(snapshot)
     features, columns = make_features(prices)
+    macro_manifest = None
+    if macro_snapshot is not None:
+        from regimecast.data.macro import load_vintages, macro_features
+
+        macro = macro_features(load_vintages(macro_snapshot), features.date)
+        macro_columns = [c for c in macro if c != "date"]
+        features = features.merge(macro, on="date", how="left", validate="many_to_one")
+        columns = columns + macro_columns
+        macro_manifest = json.loads(
+            (macro_snapshot / "manifest.json").read_text(encoding="utf-8")
+        )
     gate = None
     gate_diagnostics = []
     if gate_kind:
@@ -37,6 +54,15 @@ def run_backtest(
     ledger, metadata = backtest(
         features, columns, config, gates=None if gate is None else {gate_kind: gate}
     )
+    if macro_manifest is not None:
+        ledger["model"] = ledger.model.where(
+            ledger.model.isin(["historical", "ewma", "har"]), ledger.model + "_macro"
+        )
+        metadata["macro"] = {
+            "sha256": macro_manifest["sha256"],
+            "availability": macro_manifest["availability"],
+            "gate_features": "price-only, held fixed for controlled macro forecasting ablation",
+        }
     now = datetime.now(UTC)
     directory = output / (now.strftime("%Y%m%dT%H%M%S%fZ") + "-" + uuid.uuid4().hex[:8])
     directory.mkdir(parents=True, exist_ok=False)

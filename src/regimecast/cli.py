@@ -48,8 +48,35 @@ def main():
     backtest_parser.add_argument("--output", type=Path, default=Path("artifacts"))
     backtest_parser.add_argument("--gate", choices=["gmm", "hmm"])
     backtest_parser.add_argument("--states", type=int, choices=[2, 3, 4], default=3)
+    backtest_parser.add_argument("--macro-snapshot", type=Path)
+    macro_parser = commands.add_parser(
+        "ingest-macro", help="Download historical FRED vintages using a local key"
+    )
+    macro_parser.add_argument("--start", default="2005-01-01")
+    macro_parser.add_argument("--end", default="2026-11-09")
+    macro_parser.add_argument("--output", type=Path, default=Path("data"))
+    analyze_parser = commands.add_parser(
+        "analyze", help="Analyze matched prediction ledgers"
+    )
+    analyze_parser.add_argument("runs", nargs="+", type=Path)
+    analyze_parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     try:
+        if args.command == "ingest-macro":
+            from regimecast.data.macro import download_vintages, save_vintages
+
+            print(save_vintages(download_vintages(args.start, args.end), args.output))
+            return
+        if args.command == "analyze":
+            from regimecast.evaluation.comparison import analyze, merge_ledgers
+
+            analyze(
+                merge_ledgers(args.runs),
+                args.output,
+                features=pd.read_parquet(args.runs[0] / "features.parquet"),
+            )
+            print(args.output)
+            return
         if args.command == "backtest":
             from regimecast.evaluation.walkforward import BacktestConfig
             from regimecast.pipeline import run_backtest
@@ -61,6 +88,7 @@ def main():
                     BacktestConfig(start=args.start, end=args.end),
                     gate_kind=args.gate,
                     states=args.states,
+                    macro_snapshot=args.macro_snapshot,
                 )
             )
             return

@@ -18,8 +18,8 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - [x] Soft weighted experts, pooled-plus-probabilities and fallbacks
 
 ## Phase 4 â€” Evidence
-- [ ] Matched evaluations, paired date-block bootstrap, stress slices
-- [ ] Point-in-time macro ingestion and ablation
+- [x] Matched evaluations, paired date-block bootstrap, stress slices
+- [ ] Point-in-time macro ablation (historical-vintage ingestion verified)
 - [ ] Development experiments and locked holdout protocol
 
 ## Phase 5 â€” Product
@@ -78,3 +78,18 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Validation and per-asset errors are in reports/phase3-regime-validation.json.
 - Forecasting source stayed unchanged during runs; untracked macro/analysis additions explain dirty-tree provenance.
 - Full primary development evaluation is complete; regime-count sensitivity and uncertainty remain Phase 4 work.
+
+### Phase 4A evidence tools
+- Added matched-ledger integrity checks and circular date-block bootstrap (5/21/63-session blocks; 2,000 replicates).
+- Added annual results, non-overlapping forecast evaluation, worst errors and training-defined prospective stress slices.
+- Development intervals are exploratory and unadjusted for multiple comparisons; they are not evidence of profitable trading.
+- Free FRED key verified locally; sparse vintage downloader batches four-year release periods to respect API limits.
+- Macro release timing and revision parser tests pass. Real macro ingestion remains running.
+
+### Phase 4A verified increment
+- 35 tests passed across the full 34-test suite and the additional end-to-end macro test.
+- Real FRED/ALFRED snapshot verified: 13,013 vintage records across DGS2, DGS10, UNRATE and CPIAUCSL.
+- Release-aware features include levels, changes, missingness, age, inflation year-over-year and yield-curve changes.
+- Key remains only in ignored .env; provider errors do not log request URLs.
+- Evidence tools and development summaries are complete. Macro ablation, regime sensitivity and locked holdout remain pending.
+- GitHub authentication must be restored in the execution environment before queued commits can be pushed.

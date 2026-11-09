@@ -1,0 +1,13 @@
+{
+  "provider": "FRED/ALFRED",
+  "downloaded_at": "2026-11-09T14:02:26.820760+00:00",
+  "sha256": "5f0085be80b20cddcb07b0dd69ef9a5bc2ff0b0eb536a09e0ab2dad216188255",
+  "rows": 13013,
+  "series": [
+    "CPIAUCSL",
+    "DGS10",
+    "DGS2",
+    "UNRATE"
+  ],
+  "availability": "First XNYS session strictly after vintage date; no intraday release timing assumed"
+}
