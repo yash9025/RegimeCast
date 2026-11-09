@@ -70,3 +70,11 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Added pooled-plus-probabilities ablations, expert effective sample-size diagnostics and unreliable-gate fallback.
 - 26 tests pass, including variance-space convexity, invalid probability rejection and pooled fallbacks.
 - Phase 3 real-data acceptance remains pending the GMM/HMM integration experiments.
+
+### Phase 3 completion
+- Both full 2013–2023 real-data experiments completed: 66,432 forecasts each, 132 monthly refits, three regimes.
+- All probability sums, historical fit cutoffs and label-maturity checks pass.
+- Baseline predictions exactly match the Phase 2 run in both experiments.
+- Validation and per-asset errors are in reports/phase3-regime-validation.json.
+- Forecasting source stayed unchanged during runs; untracked macro/analysis additions explain dirty-tree provenance.
+- Full primary development evaluation is complete; regime-count sensitivity and uncertainty remain Phase 4 work.

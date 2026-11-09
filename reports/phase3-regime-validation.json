@@ -1,0 +1,446 @@
+[
+  {
+    "gate": {
+      "kind": "gmm",
+      "states": 3,
+      "seed": 42,
+      "warmup": 126,
+      "window": 1260
+    },
+    "forecast_rows": 66432,
+    "sessions": 2768,
+    "past_only_gate_fits": true,
+    "matched_baselines_unchanged": true,
+    "label_maturity_verified": true,
+    "gate_reliability_fraction": 1.0,
+    "forecasting_code_commit": "51ce290",
+    "recorded_commit": "ee7d4129e4f3b5cb0b1a1138379e967847f412e9",
+    "data_sha256": "01215d1eb811f5a347ae696735b0d738ccbe57dab757c78aa3ea8eb3639e91ea",
+    "predictions_sha256": "5190cf525ab7a5cbe068632e0ee373b9c1e57e92ca19cc2c39eb3eba27e1ec04",
+    "metrics": [
+      {
+        "model": "ewma",
+        "asset": "GLD",
+        "observations": 2768,
+        "qlike": 0.4325978159493914,
+        "volatility_mae_pct_points": 4.833150273905601,
+        "volatility_rmse_pct_points": 6.77978138303327
+      },
+      {
+        "model": "ewma",
+        "asset": "QQQ",
+        "observations": 2768,
+        "qlike": 0.4782801846454478,
+        "volatility_mae_pct_points": 6.563129013999944,
+        "volatility_rmse_pct_points": 9.484480117554314
+      },
+      {
+        "model": "ewma",
+        "asset": "SPY",
+        "observations": 2768,
+        "qlike": 0.5603960924755632,
+        "volatility_mae_pct_points": 5.496570356192105,
+        "volatility_rmse_pct_points": 8.45569725549106
+      },
+      {
+        "model": "ewma",
+        "asset": "TLT",
+        "observations": 2768,
+        "qlike": 0.3040187711500859,
+        "volatility_mae_pct_points": 4.076496738687203,
+        "volatility_rmse_pct_points": 6.178800828309336
+      },
+      {
+        "model": "gmm_mixture",
+        "asset": "GLD",
+        "observations": 2768,
+        "qlike": 0.4829460287117749,
+        "volatility_mae_pct_points": 4.879077587470041,
+        "volatility_rmse_pct_points": 6.919185725876662
+      },
+      {
+        "model": "gmm_mixture",
+        "asset": "QQQ",
+        "observations": 2768,
+        "qlike": 0.5530838627369704,
+        "volatility_mae_pct_points": 6.068894583979226,
+        "volatility_rmse_pct_points": 9.874594847175675
+      },
+      {
+        "model": "gmm_mixture",
+        "asset": "SPY",
+        "observations": 2768,
+        "qlike": 0.6121471718834727,
+        "volatility_mae_pct_points": 5.148570892619337,
+        "volatility_rmse_pct_points": 8.690725356686746
+      },
+      {
+        "model": "gmm_mixture",
+        "asset": "TLT",
+        "observations": 2768,
+        "qlike": 0.3314623443494217,
+        "volatility_mae_pct_points": 3.946009768896959,
+        "volatility_rmse_pct_points": 6.114937157942515
+      },
+      {
+        "model": "gmm_pooled_probabilities",
+        "asset": "GLD",
+        "observations": 2768,
+        "qlike": 0.4355013279362423,
+        "volatility_mae_pct_points": 4.838598184885792,
+        "volatility_rmse_pct_points": 6.871691896483271
+      },
+      {
+        "model": "gmm_pooled_probabilities",
+        "asset": "QQQ",
+        "observations": 2768,
+        "qlike": 0.5422184923930868,
+        "volatility_mae_pct_points": 6.251654626934977,
+        "volatility_rmse_pct_points": 10.062568741920058
+      },
+      {
+        "model": "gmm_pooled_probabilities",
+        "asset": "SPY",
+        "observations": 2768,
+        "qlike": 0.5873339968268387,
+        "volatility_mae_pct_points": 5.262148143771378,
+        "volatility_rmse_pct_points": 9.00545634735252
+      },
+      {
+        "model": "gmm_pooled_probabilities",
+        "asset": "TLT",
+        "observations": 2768,
+        "qlike": 0.3203695275274639,
+        "volatility_mae_pct_points": 4.07640681599497,
+        "volatility_rmse_pct_points": 6.243191799982114
+      },
+      {
+        "model": "har",
+        "asset": "GLD",
+        "observations": 2768,
+        "qlike": 0.409205879300008,
+        "volatility_mae_pct_points": 5.115033791440779,
+        "volatility_rmse_pct_points": 6.868897598669063
+      },
+      {
+        "model": "har",
+        "asset": "QQQ",
+        "observations": 2768,
+        "qlike": 0.4587824491140191,
+        "volatility_mae_pct_points": 6.366894810996085,
+        "volatility_rmse_pct_points": 9.280047229550846
+      },
+      {
+        "model": "har",
+        "asset": "SPY",
+        "observations": 2768,
+        "qlike": 0.5271257051483595,
+        "volatility_mae_pct_points": 5.552438888227635,
+        "volatility_rmse_pct_points": 8.39330332945753
+      },
+      {
+        "model": "har",
+        "asset": "TLT",
+        "observations": 2768,
+        "qlike": 0.2964362387658405,
+        "volatility_mae_pct_points": 4.300723315918698,
+        "volatility_rmse_pct_points": 6.139094413387463
+      },
+      {
+        "model": "historical",
+        "asset": "GLD",
+        "observations": 2768,
+        "qlike": 0.4885303937325537,
+        "volatility_mae_pct_points": 5.003133406309308,
+        "volatility_rmse_pct_points": 7.0996151855672425
+      },
+      {
+        "model": "historical",
+        "asset": "QQQ",
+        "observations": 2768,
+        "qlike": 0.546687179005912,
+        "volatility_mae_pct_points": 6.706619541468512,
+        "volatility_rmse_pct_points": 9.823838353733764
+      },
+      {
+        "model": "historical",
+        "asset": "SPY",
+        "observations": 2768,
+        "qlike": 0.6530341977353112,
+        "volatility_mae_pct_points": 5.587080834575132,
+        "volatility_rmse_pct_points": 8.787277169904684
+      },
+      {
+        "model": "historical",
+        "asset": "TLT",
+        "observations": 2768,
+        "qlike": 0.3198174554982291,
+        "volatility_mae_pct_points": 4.125257996677158,
+        "volatility_rmse_pct_points": 6.481807009137924
+      },
+      {
+        "model": "pooled",
+        "asset": "GLD",
+        "observations": 2768,
+        "qlike": 0.430148797114295,
+        "volatility_mae_pct_points": 4.830407048990031,
+        "volatility_rmse_pct_points": 6.851485592321513
+      },
+      {
+        "model": "pooled",
+        "asset": "QQQ",
+        "observations": 2768,
+        "qlike": 0.5428239246306903,
+        "volatility_mae_pct_points": 6.006053070950541,
+        "volatility_rmse_pct_points": 9.506052610070464
+      },
+      {
+        "model": "pooled",
+        "asset": "SPY",
+        "observations": 2768,
+        "qlike": 0.5718372487251463,
+        "volatility_mae_pct_points": 5.094430951624791,
+        "volatility_rmse_pct_points": 8.56071341938463
+      },
+      {
+        "model": "pooled",
+        "asset": "TLT",
+        "observations": 2768,
+        "qlike": 0.3131725001973552,
+        "volatility_mae_pct_points": 4.025126834936346,
+        "volatility_rmse_pct_points": 6.080341897443434
+      }
+    ],
+    "mean_qlike": {
+      "ewma": 0.4438232160551221,
+      "gmm_mixture": 0.4949098519204099,
+      "gmm_pooled_probabilities": 0.4713558361709079,
+      "har": 0.4228875680820568,
+      "historical": 0.5020173064930015,
+      "pooled": 0.4644956176668717
+    },
+    "provenance_note": "Untracked macro/analysis additions were developed during computation; forecasting source was unchanged."
+  },
+  {
+    "gate": {
+      "kind": "hmm",
+      "states": 3,
+      "seed": 42,
+      "warmup": 126,
+      "window": 1260
+    },
+    "forecast_rows": 66432,
+    "sessions": 2768,
+    "past_only_gate_fits": true,
+    "matched_baselines_unchanged": true,
+    "label_maturity_verified": true,
+    "gate_reliability_fraction": 1.0,
+    "forecasting_code_commit": "51ce290",
+    "recorded_commit": "ee7d4129e4f3b5cb0b1a1138379e967847f412e9",
+    "data_sha256": "01215d1eb811f5a347ae696735b0d738ccbe57dab757c78aa3ea8eb3639e91ea",
+    "predictions_sha256": "a0e4fded7cb68bd106a1e7be564c68665c8b81a94bdac4c5de4a6ecc3b27468b",
+    "metrics": [
+      {
+        "model": "ewma",
+        "asset": "GLD",
+        "observations": 2768,
+        "qlike": 0.4325978159493914,
+        "volatility_mae_pct_points": 4.833150273905601,
+        "volatility_rmse_pct_points": 6.77978138303327
+      },
+      {
+        "model": "ewma",
+        "asset": "QQQ",
+        "observations": 2768,
+        "qlike": 0.4782801846454478,
+        "volatility_mae_pct_points": 6.563129013999944,
+        "volatility_rmse_pct_points": 9.484480117554314
+      },
+      {
+        "model": "ewma",
+        "asset": "SPY",
+        "observations": 2768,
+        "qlike": 0.5603960924755632,
+        "volatility_mae_pct_points": 5.496570356192105,
+        "volatility_rmse_pct_points": 8.45569725549106
+      },
+      {
+        "model": "ewma",
+        "asset": "TLT",
+        "observations": 2768,
+        "qlike": 0.3040187711500859,
+        "volatility_mae_pct_points": 4.076496738687203,
+        "volatility_rmse_pct_points": 6.178800828309336
+      },
+      {
+        "model": "har",
+        "asset": "GLD",
+        "observations": 2768,
+        "qlike": 0.409205879300008,
+        "volatility_mae_pct_points": 5.115033791440779,
+        "volatility_rmse_pct_points": 6.868897598669063
+      },
+      {
+        "model": "har",
+        "asset": "QQQ",
+        "observations": 2768,
+        "qlike": 0.4587824491140191,
+        "volatility_mae_pct_points": 6.366894810996085,
+        "volatility_rmse_pct_points": 9.280047229550846
+      },
+      {
+        "model": "har",
+        "asset": "SPY",
+        "observations": 2768,
+        "qlike": 0.5271257051483595,
+        "volatility_mae_pct_points": 5.552438888227635,
+        "volatility_rmse_pct_points": 8.39330332945753
+      },
+      {
+        "model": "har",
+        "asset": "TLT",
+        "observations": 2768,
+        "qlike": 0.2964362387658405,
+        "volatility_mae_pct_points": 4.300723315918698,
+        "volatility_rmse_pct_points": 6.139094413387463
+      },
+      {
+        "model": "historical",
+        "asset": "GLD",
+        "observations": 2768,
+        "qlike": 0.4885303937325537,
+        "volatility_mae_pct_points": 5.003133406309308,
+        "volatility_rmse_pct_points": 7.0996151855672425
+      },
+      {
+        "model": "historical",
+        "asset": "QQQ",
+        "observations": 2768,
+        "qlike": 0.546687179005912,
+        "volatility_mae_pct_points": 6.706619541468512,
+        "volatility_rmse_pct_points": 9.823838353733764
+      },
+      {
+        "model": "historical",
+        "asset": "SPY",
+        "observations": 2768,
+        "qlike": 0.6530341977353112,
+        "volatility_mae_pct_points": 5.587080834575132,
+        "volatility_rmse_pct_points": 8.787277169904684
+      },
+      {
+        "model": "historical",
+        "asset": "TLT",
+        "observations": 2768,
+        "qlike": 0.3198174554982291,
+        "volatility_mae_pct_points": 4.125257996677158,
+        "volatility_rmse_pct_points": 6.481807009137924
+      },
+      {
+        "model": "hmm_mixture",
+        "asset": "GLD",
+        "observations": 2768,
+        "qlike": 0.460463835165008,
+        "volatility_mae_pct_points": 4.909713383012844,
+        "volatility_rmse_pct_points": 6.97827516557746
+      },
+      {
+        "model": "hmm_mixture",
+        "asset": "QQQ",
+        "observations": 2768,
+        "qlike": 0.5496056392219469,
+        "volatility_mae_pct_points": 5.973415118155694,
+        "volatility_rmse_pct_points": 9.609445459978335
+      },
+      {
+        "model": "hmm_mixture",
+        "asset": "SPY",
+        "observations": 2768,
+        "qlike": 0.607492272959846,
+        "volatility_mae_pct_points": 5.046008422593856,
+        "volatility_rmse_pct_points": 8.637174613519152
+      },
+      {
+        "model": "hmm_mixture",
+        "asset": "TLT",
+        "observations": 2768,
+        "qlike": 0.3759259137237749,
+        "volatility_mae_pct_points": 4.127198074343021,
+        "volatility_rmse_pct_points": 6.394668018590292
+      },
+      {
+        "model": "hmm_pooled_probabilities",
+        "asset": "GLD",
+        "observations": 2768,
+        "qlike": 0.4327748923869222,
+        "volatility_mae_pct_points": 4.753906836352317,
+        "volatility_rmse_pct_points": 6.671585185999022
+      },
+      {
+        "model": "hmm_pooled_probabilities",
+        "asset": "QQQ",
+        "observations": 2768,
+        "qlike": 0.5587682025913687,
+        "volatility_mae_pct_points": 6.0100641675875695,
+        "volatility_rmse_pct_points": 9.604599258940514
+      },
+      {
+        "model": "hmm_pooled_probabilities",
+        "asset": "SPY",
+        "observations": 2768,
+        "qlike": 0.605169959047875,
+        "volatility_mae_pct_points": 5.076065655248717,
+        "volatility_rmse_pct_points": 8.733166072644446
+      },
+      {
+        "model": "hmm_pooled_probabilities",
+        "asset": "TLT",
+        "observations": 2768,
+        "qlike": 0.3374565187069078,
+        "volatility_mae_pct_points": 3.981251653789297,
+        "volatility_rmse_pct_points": 6.197619997131494
+      },
+      {
+        "model": "pooled",
+        "asset": "GLD",
+        "observations": 2768,
+        "qlike": 0.430148797114295,
+        "volatility_mae_pct_points": 4.830407048990031,
+        "volatility_rmse_pct_points": 6.851485592321513
+      },
+      {
+        "model": "pooled",
+        "asset": "QQQ",
+        "observations": 2768,
+        "qlike": 0.5428239246306903,
+        "volatility_mae_pct_points": 6.006053070950541,
+        "volatility_rmse_pct_points": 9.506052610070464
+      },
+      {
+        "model": "pooled",
+        "asset": "SPY",
+        "observations": 2768,
+        "qlike": 0.5718372487251463,
+        "volatility_mae_pct_points": 5.094430951624791,
+        "volatility_rmse_pct_points": 8.56071341938463
+      },
+      {
+        "model": "pooled",
+        "asset": "TLT",
+        "observations": 2768,
+        "qlike": 0.3131725001973552,
+        "volatility_mae_pct_points": 4.025126834936346,
+        "volatility_rmse_pct_points": 6.080341897443434
+      }
+    ],
+    "mean_qlike": {
+      "ewma": 0.4438232160551221,
+      "har": 0.4228875680820568,
+      "historical": 0.5020173064930015,
+      "hmm_mixture": 0.49837191526764396,
+      "hmm_pooled_probabilities": 0.4835423931832684,
+      "pooled": 0.4644956176668717
+    },
+    "provenance_note": "Untracked macro/analysis additions were developed during computation; forecasting source was unchanged."
+  }
+]
