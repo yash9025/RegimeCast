@@ -114,3 +114,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Holdout metrics, paired block intervals, annual/stress results and worst errors are in reports/holdout-analysis.
 - Two/three/four-state diagnostics completed for 2020 only, explicitly labeled in reports/regime-count-sensitivity.csv.
 - Price and macro hypotheses are reported without requiring outperformance or claiming trading profitability.
+
+### Phase 5A — read-only API
+- Forecast, regime, history, metrics, explanation, metadata and freshness endpoints implemented.
+- API tests pass for filtering, limits, missing/corrupt artifacts and completed-session freshness.
+- Requests serve saved results and never train models.
+- Corrected lock generation to use the isolated project environment and include API dependencies in CI.
