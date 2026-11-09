@@ -80,8 +80,19 @@ def main():
     forecast_parser.add_argument("--gmm-cache", type=Path)
     forecast_parser.add_argument("--hmm-cache", type=Path)
     forecast_parser.add_argument("--output", type=Path, default=Path("artifacts"))
+    track_parser = commands.add_parser(
+        "track", help="Register saved runs in local SQLite-backed MLflow"
+    )
+    track_parser.add_argument("runs", nargs="+", type=Path)
+    track_parser.add_argument("--output", type=Path, default=Path("artifacts/mlflow"))
     args = parser.parse_args()
     try:
+        if args.command == "track":
+            from regimecast.tracking import track_run
+
+            for run in args.runs:
+                print(track_run(run, args.output))
+            return
         if args.command == "forecast":
             from regimecast.production import prepare_forecasts
 

@@ -132,3 +132,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Saves fitted models, regime archives, expert contributions, feature context, and an atomic artifact catalog.
 - End-to-end test validates saved models, contribution sums, label maturity and explicit synthetic-data labeling.
 - Live real-data preparation follows this separate tested code commit.
+
+### Phase 6A — experiment tracking
+- Added idempotent MLflow registration for existing run artifacts, without retraining.
+- Tracking uses a local SQLite database and local artifacts; telemetry is disabled.
+- Test verifies completed runs, persisted metrics and duplicate-registration prevention.
+- All scientific, API, dashboard and research dependency versions are pinned for CI.
