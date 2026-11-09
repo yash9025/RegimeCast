@@ -2,95 +2,70 @@
 
 **Regime-Aware Volatility Forecasting**
 
-Does recognizing market regimes improve next-five-session volatility forecasts over a strong pooled model? RegimeCast investigates this question for SPY, QQQ, TLT and GLD with time-ordered evaluation.
+A reproducible market-risk research system for SPY, QQQ, TLT and GLD. It predicts annualized volatility over the next five trading sessions and investigates whether probabilistic market regimes improve forecasting.
 
-## Status
+## Open the completed local dashboard
 
-Phases 1–3 complete. The project has 36 passing tests, validated real prices and historical macro vintages. Development evidence currently favors simpler benchmarks over both three-state mixtures; Phase 4 holdout and sensitivity work is in progress. See [TASKS.md](TASKS.md) for verified progress and [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for the research protocol.
+This workspace already contains downloaded data, evaluated experiments, fitted models and latest forecast artifacts. You do not need to rerun the backtests to open it.
 
-## Setup (PowerShell)
+From PowerShell in the project folder:
+
+```powershell
+.\.venv\Scripts\python.exe -m streamlit run dashboard/app.py --server.address 127.0.0.1
+```
+
+Open [the dashboard](http://localhost:8501). It includes forecasts, state probabilities, historical errors, uncertainty estimates and expert contributions.
+
+For the separate API:
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn regimecast.api.app:app --host 127.0.0.1 --port 8000
+```
+
+API documentation: [localhost:8000/docs](http://localhost:8000/docs). Requests serve saved artifacts; they never train models.
+
+## Research result
+
+The evaluated regime mixtures did **not** outperform the pooled model on the primary metric. This project reports that negative result rather than promising improvement.
+
+| Model | Development QLIKE, 2013–2023 | Locked holdout QLIKE, 2024–2025 |
+|---|---:|---:|
+| Pooled boosting | 0.4645 | **0.3694** |
+| HAR benchmark | **0.4229** | 0.4096 |
+| GMM experts | 0.4949 | 0.4163 |
+| HMM experts | 0.4984 | 0.3946 |
+| Pooled + macro | 0.4715 | 0.4011 |
+
+Lower QLIKE is better. Values average the four assets equally. See the [research report](docs/RESEARCH_REPORT.md) for uncertainty, failure cases and interpretation.
+
+## What is implemented
+
+- Validated adjusted-price ingestion, XNYS session checks, immutable Parquet snapshots and checksums.
+- Historical FRED/ALFRED vintages for yields, unemployment and inflation, joined only after conservative release availability.
+- Causal returns, volatility, correlations, drawdowns, yield-curve changes and macro features.
+- Historical/EWMA/HAR/pooled baselines, GMM and forward-filtered HMM gates, soft-weighted experts and pooled-probability ablations.
+- Monthly rolling evaluation with matured labels, matched forecast rows, a frozen holdout and paired date-block uncertainty estimates.
+- Local SQLite-backed MLflow tracking, saved operational models, a read-only FastAPI service and a Streamlit dashboard.
+
+Everything runs locally with free libraries and data access. No paid model API, database or hosting is required. Provider usage terms still apply.
+
+## Fresh checkout
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python -m pip install -e ".[dev]"
-.\.venv\Scripts\python -m pytest -q
-.\.venv\Scripts\ruff check src tests
+.\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
+.\.venv\Scripts\python.exe -m pip install --no-deps -e ".[dev,api,dashboard,research]"
 ```
 
-## Ingest daily adjusted prices
+Copy `.env.example` to `.env` and enter your free FRED API key locally. Never commit or share keys. Market data, models, MLflow databases and `.env` are intentionally excluded from Git. A fresh clone must prepare its own artifacts; follow [Reproducing the project](docs/REPRODUCING.md).
 
-```powershell
-.\.venv\Scripts\regimecast ingest --provider yahoo --start 2006-01-01 --end 2026-11-09
-.\.venv\Scripts\regimecast validate data/raw/REPLACE_WITH_SNAPSHOT_DIRECTORY
-```
+## Documentation
 
-The end date is exclusive. Choose an end date that excludes incomplete trading sessions. Yahoo access is an unofficial research adapter; verify the underlying provider terms before use. Raw market data is not committed or redistributed. API behavior: https://ranaroussi.github.io/yfinance/reference/api/yfinance.download.html
+- [Research report](docs/RESEARCH_REPORT.md)
+- [Reproduction and refresh instructions](docs/REPRODUCING.md)
+- [Model card](docs/MODEL_CARD.md)
+- [Data card](docs/DATA_CARD.md)
+- [Implementation plan](IMPLEMENTATION_PLAN.md)
+- [Delivery tracker and completed checks](TASKS.md)
 
-For your own licensed history, import a CSV with exactly these required columns:
-
-```text
-date,asset,adjusted_close
-2024-01-02,SPY,465.25
-```
-
-Supply every requested asset for every XNYS session in the requested range, in ascending date order within each asset. The example above illustrates the schema only and is not a complete dataset.
-
-```powershell
-.\.venv\Scripts\regimecast ingest --provider csv --csv prices.csv --adjustment "Provider split/dividend adjusted close" --start 2006-01-01 --end 2026-11-09
-```
-
-The pipeline fails on missing prices, duplicates, nonpositive values, unexpected sessions, timezone-bearing session labels, or missing boundary observations. Suspicious jumps and unchanged-price streaks are reported for review. It never fills missing prices. Snapshots contain normalized provider observations, a SHA-256 checksum, validation details and download time; local CSV input also gets a source checksum.
-
-Retrospectively adjusted prices are **not** point-in-time vintages. Publication timestamps cannot be reconstructed from current Yahoo history. Revised macro data will be excluded from the primary experiment until historical vintages are available. Keep secrets in environment variables and never add tokens to source or repository URLs.
-
-## Forecast definition
-
-For daily log returns r, the variance target at session t is `252 / 5 * sum(r[t+j]**2 for j in 1..5)`. The dashboard will display `100 * sqrt(variance)` as annualized volatility percent. This daily-return proxy is noisy; it is not an intraday realized-volatility estimator.
-
-## Development baselines
-
-```powershell
-.\.venv\Scripts\regimecast backtest data/raw/REPLACE_WITH_SNAPSHOT_DIRECTORY --start 2013-01-01 --end 2024-01-01
-```
-
-The command writes an immutable run directory with predictions, features, per-asset metrics and configuration/provenance. Models are historical variance, EWMA, log-HAR and pooled histogram gradient boosting. Features use lagged/current close information only. Forecast issuance is conservatively defined as 16:30 America/New_York on each session. Labels must have fully matured by each monthly refit; training uses the most recent 1,260 eligible sessions. The initial feature warmup is excluded.
-
-No hyperparameters have been tuned. The fixed development defaults leave 2024 onward locked, including the two full calendar years 2024–2025 and the subsequent partial year. Do not select models using that period. Volatility MAE/RMSE are in annualized percentage points; QLIKE uses annualized variance.
-
-## Regime experiments
-
-```powershell
-.\.venv\Scripts\regimecast backtest data/raw/REPLACE_WITH_SNAPSHOT_DIRECTORY --gate gmm --states 3
-.\.venv\Scripts\regimecast backtest data/raw/REPLACE_WITH_SNAPSHOT_DIRECTORY --gate hmm --states 3
-```
-
-Each experiment regenerates a causal historical probability archive using past-only monthly gate refits. State features are aggregate volatility, drawdown, correlation and returns. HMM probabilities use forward filtering. States align to prior training centers using minimum-distance assignment; state IDs are descriptive, not independently observed economic labels. Archives and fit diagnostics accompany each run.
-
-Experts use soft probability sample weights and share the pooled learner family. The mixture combines variance forecasts, and falls back to pooled predictions for unreliable current gates or undersupported experts. Nonconvergence is reported, not suppressed. The extra pooled-plus-probabilities model tests whether gates help without separate experts. Results still require matched, time-dependent uncertainty analysis.
-
-## Free historical macro data and evidence
-
-Create a free FRED API key and store it locally as `FRED_API_KEY=...` in `.env`. The file is ignored by Git. Never paste keys into chat or commit them. Alternatively set the environment variable. All computation and storage are local; no paid services are required.
-
-```powershell
-.\.venv\Scripts\regimecast ingest-macro --start 2005-01-01 --end 2026-11-09
-.\.venv\Scripts\regimecast backtest data/raw/PRICE_SNAPSHOT --macro-snapshot data/macro/MACRO_SNAPSHOT
-.\.venv\Scripts\regimecast analyze artifacts/GMM_RUN artifacts/HMM_RUN --output reports/MY_NEW_ANALYSIS
-```
-
-The macro adapter requests sparse new/revised observations in four-year batches, preserving the release dates encoded by FRED. Values become usable on the first trading session strictly after the vintage date. A revision to an older month never displaces a newer observation. Missing macro values stay missing with indicators; boosting handles them natively. Regime gate features remain price-only for the initial controlled macro ablation.
-
-Analysis uses paired date-level QLIKE differences with all assets retained together in circular moving blocks (5/21/63 sessions). Reports include annual results, training-defined stress slices, every-fifth-session non-overlapping targets and worst errors. Confidence intervals are exploratory and unadjusted for multiple comparisons. Existing full-period development evidence is in [reports/development-analysis](reports/development-analysis).
-
-## Frozen holdout
-
-[configs/holdout-protocol.json](configs/holdout-protocol.json) freezes the 2024–2025 holdout before evaluation. The CLI rejects holdout dates unless `--holdout` is explicitly supplied, and then requires the exact frozen dates, training window, seed and three-state setting. No hyperparameter search has been performed. Scheduled refits may learn from labels that have matured by that time.
-
-```powershell
-.\.venv\Scripts\regimecast backtest data/raw/PRICE_SNAPSHOT --start 2024-01-01 --end 2026-01-01 --holdout --gate gmm
-.\.venv\Scripts\regimecast backtest data/raw/PRICE_SNAPSHOT --start 2024-01-01 --end 2026-01-01 --holdout --gate hmm
-```
-
-The two/four-state sensitivity diagnostic uses 2020 only, comparing those runs with the 2020 subset of the full three-state development experiment. It cannot establish stability across the entire sample. Final model choices must not be retuned after holdout results are observed.
-
-To avoid regenerating earlier gate fits, add `--gate-cache artifacts/MATCHING_DEVELOPMENT_RUN` to a later GMM/HMM backtest. The cache must use the same price snapshot, gate kind, state count and seed. Continuation requires a completed month boundary. The cache checksum is recorded in the new run metadata, and resumed probabilities are tested against full generation.
+The application is intended for local research. Public deployment, continuous ingestion and operational monitoring are separate work. Forecasts are not a trading strategy.

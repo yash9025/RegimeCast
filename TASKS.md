@@ -24,11 +24,12 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 
 ## Phase 5 â€” Product
 - [x] Saved-artifact FastAPI and dashboard
-- [ ] Explanations, freshness, errors, API smoke tests
+- [x] Explanations, freshness, errors, API checks and dashboard rendering
 
 ## Phase 6 â€” Delivery
-- [ ] Model/data cards, reproduction instructions and final report
-- [ ] Clean environment verification and final push
+- [x] Model/data cards, reproduction instructions and final report
+- [x] Final delivery push
+- [ ] Additional clean-environment and final aggregate verification (deferred at explicit user request)
 
 ## Execution notes
 - Folder renamed by user to RegimeCast.
@@ -144,3 +145,10 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Reproduced analyses register locally without overwriting released research reports.
 - Macro refresh defaults now use the current UTC date; historical experiments still use explicit frozen cutoffs.
 - Focused tests cover stale-version rejection and the refresh-date default.
+
+### Final handoff
+- Real operational forecasts, fitted models, expert contributions and dashboard catalog prepared locally.
+- Six primary development/holdout runs registered in local SQLite-backed MLflow.
+- README, research report, model/data cards and reproduction guide completed.
+- User requested immediate completion without further extended tests. No final aggregate suite or additional clean-environment run was performed; earlier passing checks are retained above.
+- Seed/expanding-window studies and public deployment remain documented extensions.
