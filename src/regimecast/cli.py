@@ -72,8 +72,29 @@ def main():
     )
     analyze_parser.add_argument("runs", nargs="+", type=Path)
     analyze_parser.add_argument("--output", type=Path, required=True)
+    forecast_parser = commands.add_parser(
+        "forecast", help="Prepare offline latest forecasts and saved model artifacts"
+    )
+    forecast_parser.add_argument("snapshot", type=Path)
+    forecast_parser.add_argument("--macro-snapshot", type=Path)
+    forecast_parser.add_argument("--gmm-cache", type=Path)
+    forecast_parser.add_argument("--hmm-cache", type=Path)
+    forecast_parser.add_argument("--output", type=Path, default=Path("artifacts"))
     args = parser.parse_args()
     try:
+        if args.command == "forecast":
+            from regimecast.production import prepare_forecasts
+
+            print(
+                prepare_forecasts(
+                    args.snapshot,
+                    args.output,
+                    macro_snapshot=args.macro_snapshot,
+                    gmm_cache=args.gmm_cache,
+                    hmm_cache=args.hmm_cache,
+                )
+            )
+            return
         if args.command == "ingest-macro":
             from regimecast.data.macro import download_vintages, save_vintages
 

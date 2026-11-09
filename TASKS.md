@@ -23,7 +23,7 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - [x] Development experiments, 2020 regime-count sensitivity, and frozen 2024–2025 holdout
 
 ## Phase 5 â€” Product
-- [ ] Saved-artifact FastAPI and dashboard
+- [x] Saved-artifact FastAPI and dashboard
 - [ ] Explanations, freshness, errors, API smoke tests
 
 ## Phase 6 â€” Delivery
@@ -126,3 +126,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Displays forecast as-of dates, stale-data status, uncertainty limitations and explicit synthetic demo labels.
 - Streamlit render test passes with four tabs and four forecast cards, using saved test artifacts only.
 - Dashboard shipped independently of offline model preparation.
+
+### Phase 5C — offline forecast preparation
+- Added monthly-refit operational model preparation with fully matured labels and five-session horizons.
+- Saves fitted models, regime archives, expert contributions, feature context, and an atomic artifact catalog.
+- End-to-end test validates saved models, contribution sums, label maturity and explicit synthetic-data labeling.
+- Live real-data preparation follows this separate tested code commit.

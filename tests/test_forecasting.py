@@ -241,3 +241,52 @@ def test_cached_gate_pipeline_preserves_historical_probabilities(history, tmp_pa
     assert json.loads((output / "run.json").read_text())["gate_cache"][
         "probabilities_sha256"
     ]
+
+
+def test_operational_bundle_is_consistent_and_labels_synthetic_data(
+    history, tmp_path, monkeypatch
+):
+    import json
+
+    from regimecast import production
+    from regimecast.api.store import load_bundle
+    from regimecast.data.prices import snapshot
+
+    original = BacktestConfig
+    monkeypatch.setattr(
+        production,
+        "BacktestConfig",
+        lambda **kwargs: original(train_sessions=300, min_train_sessions=250, **kwargs),
+    )
+    source = snapshot(
+        history,
+        tmp_path / "data",
+        provider="synthetic test fixture",
+        adjustment="synthetic",
+    )
+    output = production.prepare_forecasts(source, tmp_path / "artifacts")
+    bundle = load_bundle(output / "latest.json")
+    assert bundle["demo"] is True
+    assert len(bundle["forecasts"]) == 32
+    assert pd.Timestamp(
+        bundle["model_metadata"]["latest_training_label"]
+    ) <= pd.Timestamp(bundle["model_metadata"]["refit_date"])
+    for gate in ["gmm", "hmm"]:
+        for asset in ASSETS:
+            components = [
+                r
+                for r in bundle["expert_contributions"]
+                if r["gate"] == gate and r["asset"] == asset
+            ]
+            prediction = next(
+                r["forecast_variance"]
+                for r in bundle["forecasts"]
+                if r["asset"] == asset and r["model"] == gate + "_mixture"
+            )
+            assert sum(r["weighted_variance"] for r in components) == pytest.approx(
+                prediction
+            )
+    assert (output / "forecasters.joblib").exists()
+    assert json.loads((tmp_path / "artifacts/catalog.json").read_text())[
+        "latest_bundle"
+    ]
