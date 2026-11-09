@@ -92,3 +92,5 @@ Analysis uses paired date-level QLIKE differences with all assets retained toget
 ```
 
 The two/four-state sensitivity diagnostic uses 2020 only, comparing those runs with the 2020 subset of the full three-state development experiment. It cannot establish stability across the entire sample. Final model choices must not be retuned after holdout results are observed.
+
+To avoid regenerating earlier gate fits, add `--gate-cache artifacts/MATCHING_DEVELOPMENT_RUN` to a later GMM/HMM backtest. The cache must use the same price snapshot, gate kind, state count and seed. Continuation requires a completed month boundary. The cache checksum is recorded in the new run metadata, and resumed probabilities are tested against full generation.

@@ -39,3 +39,25 @@ def test_causal_gates_do_not_rewrite_past(kind):
     assert (a.gate_fit_end < a.date).all()
     np.testing.assert_allclose(a[["regime_0", "regime_1"]].sum(axis=1), 1)
     assert len(diagnostics) > 0
+
+
+@pytest.mark.parametrize("kind", ["gmm", "hmm"])
+def test_archive_resume_matches_full_causal_generation(kind):
+    rng = np.random.default_rng(9)
+    dates = pd.bdate_range("2020-01-01", periods=110)
+    frame = pd.DataFrame(rng.normal(size=(110, 4)), index=dates)
+    whole, _ = causal_probabilities(frame, kind=kind, states=2, warmup=40, window=100)
+    cutoff = pd.Timestamp("2020-03-31")
+    first, diagnostics = causal_probabilities(
+        frame.loc[:cutoff], kind=kind, states=2, warmup=40, window=100
+    )
+    tail, _ = causal_probabilities(
+        frame,
+        kind=kind,
+        states=2,
+        warmup=40,
+        window=100,
+        initial_centers=np.asarray(diagnostics[-1]["centers"]),
+        after=cutoff,
+    )
+    pd.testing.assert_frame_equal(whole, pd.concat([first, tail], ignore_index=True))

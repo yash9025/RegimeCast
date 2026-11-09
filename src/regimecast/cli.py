@@ -55,6 +55,7 @@ def main():
     )
     backtest_parser.add_argument("--output", type=Path, default=Path("artifacts"))
     backtest_parser.add_argument("--gate", choices=["gmm", "hmm"])
+    backtest_parser.add_argument("--gate-cache", type=Path)
     backtest_parser.add_argument("--states", type=int, choices=[2, 3, 4], default=3)
     backtest_parser.add_argument("--macro-snapshot", type=Path)
     backtest_parser.add_argument(
@@ -101,6 +102,7 @@ def main():
                     states=args.states,
                     macro_snapshot=args.macro_snapshot,
                     allow_holdout=args.holdout,
+                    gate_cache=args.gate_cache,
                 )
             )
             return

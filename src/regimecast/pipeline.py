@@ -9,6 +9,9 @@ from datetime import UTC, datetime
 from importlib.metadata import version
 from pathlib import Path
 
+import numpy as np
+import pandas as pd
+
 from regimecast.data.prices import load_snapshot
 from regimecast.evaluation.metrics import summarize
 from regimecast.evaluation.walkforward import BacktestConfig, backtest
@@ -24,6 +27,7 @@ def run_backtest(
     states=3,
     macro_snapshot=None,
     allow_holdout=False,
+    gate_cache=None,
 ):
     protocol = None
     if config.end > "2024-01-01":
@@ -74,17 +78,73 @@ def run_backtest(
         )
     gate = None
     gate_diagnostics = []
+    cache_provenance = None
     if gate_kind:
         from regimecast.models.regimes import causal_probabilities, market_state
 
         state = market_state(prices)
         state = state[state.index < config.end]
-        gate, gate_diagnostics = causal_probabilities(
-            state, kind=gate_kind, states=states, seed=config.seed
-        )
+        if gate_cache is None:
+            gate, gate_diagnostics = causal_probabilities(
+                state, kind=gate_kind, states=states, seed=config.seed
+            )
+        else:
+            cache_metadata = json.loads(
+                (gate_cache / "run.json").read_text(encoding="utf-8")
+            )
+            data_metadata = json.loads(
+                (snapshot / "manifest.json").read_text(encoding="utf-8")
+            )
+            expected = {
+                "kind": gate_kind,
+                "states": states,
+                "seed": config.seed,
+                "warmup": 126,
+                "window": 1260,
+            }
+            if (
+                cache_metadata["gate"] != expected
+                or cache_metadata["data_sha256"] != data_metadata["sha256"]
+            ):
+                raise ValueError("Regime cache configuration or data checksum mismatch")
+            cache_path = gate_cache / "regime_probabilities.parquet"
+            cache_provenance = {
+                "path": str(gate_cache.resolve()),
+                "probabilities_sha256": hashlib.sha256(
+                    cache_path.read_bytes()
+                ).hexdigest(),
+            }
+            cached = pd.read_parquet(cache_path)
+            cached = cached[cached.date < config.end]
+            old_diagnostics = json.loads(
+                (gate_cache / "regime_diagnostics.json").read_text(encoding="utf-8")
+            )
+            if (
+                cached.date.duplicated().any()
+                or not (cached.gate_fit_end < cached.date).all()
+            ):
+                raise ValueError("Invalid historical probability cache")
+            if state.index.max() > cached.date.max():
+                centers = next(
+                    d["centers"] for d in reversed(old_diagnostics) if "centers" in d
+                )
+                tail, diagnostics = causal_probabilities(
+                    state,
+                    kind=gate_kind,
+                    states=states,
+                    seed=config.seed,
+                    initial_centers=np.asarray(centers),
+                    after=cached.date.max(),
+                )
+                gate = pd.concat([cached, tail], ignore_index=True)
+                gate_diagnostics = old_diagnostics + diagnostics
+            else:
+                gate, gate_diagnostics = cached, old_diagnostics
     ledger, metadata = backtest(
         features, columns, config, gates=None if gate is None else {gate_kind: gate}
     )
+    if cache_provenance is not None:
+        metadata["gate_cache"] = cache_provenance
     if macro_manifest is not None:
         ledger["model"] = ledger.model.where(
             ledger.model.isin(["historical", "ewma", "har"]), ledger.model + "_macro"

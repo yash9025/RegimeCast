@@ -135,14 +135,28 @@ class GaussianGate:
 
 
 def causal_probabilities(
-    state, *, kind="gmm", states=3, seed=42, warmup=126, window=1260
+    state,
+    *,
+    kind="gmm",
+    states=3,
+    seed=42,
+    warmup=126,
+    window=1260,
+    initial_centers=None,
+    after=None,
 ):
     """Fit monthly on strictly earlier state observations; append immutable causal rows."""
     if len(state) <= warmup or warmup < states * 5:
         raise ValueError("Insufficient regime warmup")
     columns = [f"regime_{i}" for i in range(states)]
-    rows, diagnostics, previous_centers = [], [], None
+    rows, diagnostics, previous_centers = [], [], initial_centers
     future = state.iloc[warmup:]
+    if after is not None:
+        future = future[future.index > pd.Timestamp(after)]
+        if future.empty:
+            raise ValueError("No new observations after cached archive")
+        if future.index[0].to_period("M") == pd.Timestamp(after).to_period("M"):
+            raise ValueError("Resume requires a completed month boundary")
     with threadpool_limits(limits=1):
         for month, observations in future.groupby(
             future.index.to_period("M"), sort=True

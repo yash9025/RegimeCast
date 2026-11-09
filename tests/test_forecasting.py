@@ -197,3 +197,47 @@ def test_holdout_requires_exact_frozen_protocol(tmp_path):
             BacktestConfig(start="2023-01-01", end="2025-01-01"),
             allow_holdout=True,
         )
+
+
+def test_cached_gate_pipeline_preserves_historical_probabilities(history, tmp_path):
+    import json
+
+    from regimecast.data.prices import snapshot
+    from regimecast.models.regimes import causal_probabilities, market_state
+    from regimecast.pipeline import run_backtest
+
+    price_path = snapshot(
+        history, tmp_path / "data", provider="test", adjustment="synthetic"
+    )
+    state = market_state(history)
+    cached, diagnostics = causal_probabilities(
+        state.loc[:"2020-09-30"], kind="gmm", states=2
+    )
+    cache = tmp_path / "cache"
+    cache.mkdir()
+    cached.to_parquet(cache / "regime_probabilities.parquet", index=False)
+    (cache / "regime_diagnostics.json").write_text(json.dumps(diagnostics))
+    manifest = json.loads((price_path / "manifest.json").read_text())
+    metadata = {
+        "gate": {"kind": "gmm", "states": 2, "seed": 42, "warmup": 126, "window": 1260},
+        "data_sha256": manifest["sha256"],
+    }
+    (cache / "run.json").write_text(json.dumps(metadata))
+    config = BacktestConfig(
+        start="2021-01-01", end="2021-02-01", train_sessions=300, min_train_sessions=250
+    )
+    output = run_backtest(
+        price_path,
+        tmp_path / "runs",
+        config,
+        gate_kind="gmm",
+        states=2,
+        gate_cache=cache,
+    )
+    result = pd.read_parquet(output / "regime_probabilities.parquet")
+    pd.testing.assert_frame_equal(
+        cached, result[result.date <= "2020-09-30"].reset_index(drop=True)
+    )
+    assert json.loads((output / "run.json").read_text())["gate_cache"][
+        "probabilities_sha256"
+    ]

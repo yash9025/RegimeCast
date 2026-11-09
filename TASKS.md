@@ -101,3 +101,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Regime-count diagnostic is limited to 2020 and will be labeled accordingly; it does not choose the holdout model.
 - Provenance now captures the source commit, dirty state and source digest at the beginning of each run.
 - 36 tests, lint and dependency compatibility checks pass. GitHub device sign-in restored; queued commits pushed.
+
+### Phase 4C runtime improvement
+- Added month-boundary continuation of causal gate archives, with data/configuration checks and cache checksums.
+- Both GMM and HMM resumed probabilities exactly match full regeneration in tests.
+- End-to-end cached backtest preserves all historical probability rows.
+- This changes runtime and provenance only; learner defaults and frozen holdout settings stay fixed.
