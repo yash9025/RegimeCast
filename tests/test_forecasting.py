@@ -90,3 +90,35 @@ def test_pipeline_holdout_guard(tmp_path):
             tmp_path,
             BacktestConfig(start="2023-01-01", end="2025-01-01"),
         )
+
+
+def test_mixture_is_convex_and_unreliable_gate_falls_back(history):
+    from threadpoolctl import threadpool_limits
+
+    from regimecast.models.baselines import LogVarianceModel
+    from regimecast.models.mixture import MixtureOfExperts
+
+    frame, columns = make_features(history)
+    train = frame.iloc[:600]
+    test = frame.iloc[600:610]
+    weights = np.tile([0.7, 0.3], (len(train), 1))
+    probabilities = np.tile([0.25, 0.75], (len(test), 1))
+    with threadpool_limits(limits=1):
+        pooled = LogVarianceModel(columns).fit(train)
+        mixture = MixtureOfExperts(columns, states=2, min_effective=10).fit(
+            train, weights, pooled
+        )
+        prediction, components = mixture.predict(test, probabilities)
+        np.testing.assert_allclose(prediction, (components * probabilities).sum(axis=1))
+        assert (prediction >= components.min(axis=1)).all()
+        assert (prediction <= components.max(axis=1)).all()
+        fallback, _ = mixture.predict(
+            test, probabilities, reliable=np.zeros(len(test), dtype=bool)
+        )
+        np.testing.assert_allclose(fallback, pooled.predict(test))
+        small = MixtureOfExperts(columns, states=2, min_effective=10000).fit(
+            train, weights, pooled
+        )
+        assert all(expert is None for expert in small.experts)
+        with pytest.raises(ValueError):
+            small.predict(test, probabilities * 2)

@@ -15,7 +15,7 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 ## Phase 3 â€” Regimes and experts
 - [x] GMM and forward-filtered HMM
 - [x] Causal historical probabilities and stable state alignment
-- [ ] Soft weighted experts, pooled-plus-probabilities and fallbacks
+- [x] Soft weighted experts, pooled-plus-probabilities and fallbacks
 
 ## Phase 4 â€” Evidence
 - [ ] Matched evaluations, paired date-block bootstrap, stress slices
@@ -64,3 +64,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Historical probabilities are generated once per historical cutoff; later observations cannot rewrite them.
 - 25 tests pass, including hand-checked filter updates, incremental filtering and gate future-invariance for both estimators.
 - Convergence failures and numerical failures are recorded; unreliable gates will trigger pooled-model inference fallback.
+
+### Phase 3B implementation
+- Soft-weighted boosting experts mix positive variance predictions; pooled models share the same training rows and features.
+- Added pooled-plus-probabilities ablations, expert effective sample-size diagnostics and unreliable-gate fallback.
+- 26 tests pass, including variance-space convexity, invalid probability rejection and pooled fallbacks.
+- Phase 3 real-data acceptance remains pending the GMM/HMM integration experiments.

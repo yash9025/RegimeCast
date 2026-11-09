@@ -34,14 +34,14 @@ def training_rows(frame, cutoff, config):
     return eligible[eligible.date.isin(dates)]
 
 
-def backtest(frame, columns, config=BacktestConfig()):
+def backtest(frame, columns, config=BacktestConfig(), gates=None):
     """All models forecast identical dates/assets; no random validation splitting."""
     evaluation = frame[(frame.date >= config.start) & (frame.date < config.end)].dropna(
         subset=["target_variance"]
     )
     if evaluation.empty:
         raise ValueError("No complete targets in evaluation range")
-    predictions, fits = [], []
+    predictions, fits, expert_diagnostics = [], [], []
     with threadpool_limits(limits=1):
         for month, test in evaluation.groupby(
             evaluation.date.dt.to_period("M"), sort=True
@@ -60,6 +60,43 @@ def backtest(frame, columns, config=BacktestConfig()):
                 "har": har.predict(test),
                 "pooled": pooled.predict(test),
             }
+            if gates:
+                from regimecast.models.mixture import MixtureOfExperts
+
+                for kind, gate in gates.items():
+                    indexed = gate.set_index("date")
+                    probability_columns = [c for c in gate if c.startswith("regime_")]
+                    train_gate = indexed.loc[train.date].reset_index(drop=True)
+                    test_gate = indexed.loc[test.date].reset_index(drop=True)
+                    weights = train_gate[probability_columns].to_numpy()
+                    probabilities = test_gate[probability_columns].to_numpy()
+                    mixture = MixtureOfExperts(
+                        columns, len(probability_columns), config.seed
+                    ).fit(train, weights, pooled)
+                    values, _ = mixture.predict(
+                        test, probabilities, test_gate.gate_reliable.to_numpy()
+                    )
+                    forecasts[f"{kind}_mixture"] = values
+                    augmented_train, augmented_test = train.copy(), test.copy()
+                    for column in probability_columns:
+                        augmented_train[column] = train_gate[column].to_numpy()
+                        augmented_test[column] = test_gate[column].to_numpy()
+                    augmented = LogVarianceModel(
+                        columns + probability_columns, seed=config.seed
+                    ).fit(augmented_train)
+                    forecasts[f"{kind}_pooled_probabilities"] = augmented.predict(
+                        augmented_test
+                    )
+                    expert_diagnostics.append(
+                        {
+                            "month": str(month),
+                            "gate": kind,
+                            "experts": mixture.diagnostics,
+                            "unreliable_forecasts": int(
+                                (~test_gate.gate_reliable).sum()
+                            ),
+                        }
+                    )
             for name, values in forecasts.items():
                 if not np.isfinite(values).all() or (values <= 0).any():
                     raise ValueError(f"Invalid {name} predictions")
@@ -86,4 +123,9 @@ def backtest(frame, columns, config=BacktestConfig()):
     ).tz_convert("UTC")
     if ledger.duplicated(["date", "asset", "model"]).any():
         raise ValueError("Duplicate predictions")
-    return ledger, {"config": asdict(config), "fits": fits, "features": columns}
+    return ledger, {
+        "config": asdict(config),
+        "fits": fits,
+        "features": columns,
+        "expert_diagnostics": expert_diagnostics,
+    }

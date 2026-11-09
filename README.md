@@ -56,3 +56,14 @@ For daily log returns r, the variance target at session t is `252 / 5 * sum(r[t+
 The command writes an immutable run directory with predictions, features, per-asset metrics and configuration/provenance. Models are historical variance, EWMA, log-HAR and pooled histogram gradient boosting. Features use lagged/current close information only. Forecast issuance is conservatively defined as 16:30 America/New_York on each session. Labels must have fully matured by each monthly refit; training uses the most recent 1,260 eligible sessions. The initial feature warmup is excluded.
 
 No hyperparameters have been tuned. The fixed development defaults leave 2024 onward locked, including the two full calendar years 2024–2025 and the subsequent partial year. Do not select models using that period. Volatility MAE/RMSE are in annualized percentage points; QLIKE uses annualized variance.
+
+## Regime experiments
+
+```powershell
+.\.venv\Scripts\regimecast backtest data/raw/REPLACE_WITH_SNAPSHOT_DIRECTORY --gate gmm --states 3
+.\.venv\Scripts\regimecast backtest data/raw/REPLACE_WITH_SNAPSHOT_DIRECTORY --gate hmm --states 3
+```
+
+Each experiment regenerates a causal historical probability archive using past-only monthly gate refits. State features are aggregate volatility, drawdown, correlation and returns. HMM probabilities use forward filtering. States align to prior training centers using minimum-distance assignment; state IDs are descriptive, not independently observed economic labels. Archives and fit diagnostics accompany each run.
+
+Experts use soft probability sample weights and share the pooled learner family. The mixture combines variance forecasts, and falls back to pooled predictions for unreliable current gates or undersupported experts. Nonconvergence is reported, not suppressed. The extra pooled-plus-probabilities model tests whether gates help without separate experts. Results still require matched, time-dependent uncertainty analysis.

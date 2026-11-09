@@ -46,6 +46,8 @@ def main():
         "--end", default="2024-01-01", help="Exclusive; holdout begins 2024"
     )
     backtest_parser.add_argument("--output", type=Path, default=Path("artifacts"))
+    backtest_parser.add_argument("--gate", choices=["gmm", "hmm"])
+    backtest_parser.add_argument("--states", type=int, choices=[2, 3, 4], default=3)
     args = parser.parse_args()
     try:
         if args.command == "backtest":
@@ -57,6 +59,8 @@ def main():
                     args.snapshot,
                     args.output,
                     BacktestConfig(start=args.start, end=args.end),
+                    gate_kind=args.gate,
+                    states=args.states,
                 )
             )
             return
