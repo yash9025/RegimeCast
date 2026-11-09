@@ -6,7 +6,7 @@ Does recognizing market regimes improve next-five-session volatility forecasts o
 
 ## Status
 
-Phase 1 implementation in progress. No forecasting or performance claims yet. See [TASKS.md](TASKS.md) for verified progress and [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for the research protocol.
+Phase 1 complete: 17 tests pass and all four real asset histories validate (20,980 observations). No forecasting or performance claims yet. See [TASKS.md](TASKS.md) for verified progress and [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for the research protocol.
 
 ## Setup (PowerShell)
 

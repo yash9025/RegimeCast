@@ -5,7 +5,7 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 ## Phase 1 â€” Foundation
 - [x] 1A Package, isolated environment, configuration and CI
 - [x] 1B CSV/Yahoo adapters, trading-session validation, immutable Parquet snapshots and manifests
-- [ ] 1C Four-asset real-data ingestion and validation
+- [x] 1C Four-asset real-data ingestion and validation
 
 ## Phase 2 â€” Baselines
 - [ ] Causal features and exact five-session labels
@@ -38,3 +38,10 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 ### Phase 1A/1B verification
 - 16 tests passed; lint, CLI help, and pip compatibility checks passed.
 - Upstream NumPy/calendar deprecation warnings remain; no warnings are suppressed.
+
+### Phase 1 completion
+- 17 tests pass; lint, CLI smoke checks and dependency checks pass.
+- Fixed a holiday/weekend boundary bug found during real ingestion.
+- Yahoo retry succeeded: 20,980 observations, four assets, 2006-01-03 through 2026-11-06.
+- Checksum reload and complete session coverage verified with no validation warnings.
+- Data remains local and ignored by Git; its manifest summary is in reports/phase1-data-validation.json.

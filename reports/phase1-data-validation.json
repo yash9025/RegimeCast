@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "provider": "yahoo",
+  "downloaded_at": "2026-11-09T13:19:49.863414+00:00",
+  "adjustment": "Yahoo Adj Close; retrospective split/dividend adjustments",
+  "historical_vintage": false,
+  "availability": "Session close prices retrieved retrospectively; not a point-in-time archive",
+  "sha256": "01215d1eb811f5a347ae696735b0d738ccbe57dab757c78aa3ea8eb3639e91ea",
+  "source_sha256": null,
+  "validation": {
+    "rows": 20980,
+    "assets": [
+      "SPY",
+      "QQQ",
+      "TLT",
+      "GLD"
+    ],
+    "start": "2006-01-01",
+    "end": "2026-11-08",
+    "warnings": []
+  }
+}
