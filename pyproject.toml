@@ -10,7 +10,8 @@ requires-python = ">=3.11"
 dependencies = ["numpy>=2,<3", "pandas>=2.2,<3", "pyarrow>=18", "scikit-learn>=1.7,<2", "exchange-calendars>=4.11,<5", "yfinance>=0.2.65,<2", "hmmlearn>=0.3.3,<0.4", "requests>=2.32,<3"]
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "ruff>=0.12"]
+dev = ["pytest>=8", "ruff>=0.12", "httpx==0.28.1"]
+api = ["fastapi==0.162.2", "uvicorn==0.54.0"]
 
 [project.scripts]
 regimecast = "regimecast.cli:main"
