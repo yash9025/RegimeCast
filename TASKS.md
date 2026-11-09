@@ -164,3 +164,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Bounded project Python support below Python 4 and made source imports work without editable installation.
 - Added portable published-snapshot fallback and precomputed metric loading.
 - No training or extended tests run for this deployment change.
+
+### Cloud snapshot delivery
+- Exported genuine saved forecasts, expert contributions and 504-session state timelines for cloud display.
+- Included portable catalog paths and existing aggregate evaluation reports.
+- Explicitly labeled the bundle as a saved research snapshot; credentials, raw prices, model binaries and databases are excluded.
+- Added refresh/export instructions. No training or extended tests run. Hosted rebuild remains to be observed after Streamlit reboot.

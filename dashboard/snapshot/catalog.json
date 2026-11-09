@@ -1,0 +1,20 @@
+{
+  "relative_paths": true,
+  "latest_bundle": "latest.json",
+  "regime_history": {
+    "gmm": "regimes_gmm.parquet",
+    "hmm": "regimes_hmm.parquet"
+  },
+  "evaluation_runs": {
+    "development": [],
+    "holdout": []
+  },
+  "metrics": {
+    "development": "../../reports/macro-analysis/per_asset_metrics.csv",
+    "holdout": "../../reports/holdout-analysis/per_asset_metrics.csv"
+  },
+  "analysis": {
+    "development": "../../reports/macro-analysis",
+    "holdout": "../../reports/holdout-analysis"
+  }
+}

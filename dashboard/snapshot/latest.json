@@ -1,0 +1,523 @@
+{
+  "schema_version": 1,
+  "demo": false,
+  "as_of": "2026-11-06",
+  "target_end": "2026-11-13",
+  "horizon_sessions": 5,
+  "forecast_cutoff": "2026-11-06T21:30:00+00:00",
+  "forecasts": [
+    {
+      "asset": "GLD",
+      "model": "historical",
+      "forecast_variance": 0.059933316448461005,
+      "volatility_pct": 24.481281920777963
+    },
+    {
+      "asset": "QQQ",
+      "model": "historical",
+      "forecast_variance": 0.10800809060374923,
+      "volatility_pct": 32.86458437341772
+    },
+    {
+      "asset": "SPY",
+      "model": "historical",
+      "forecast_variance": 0.0393898811702611,
+      "volatility_pct": 19.84688418121623
+    },
+    {
+      "asset": "TLT",
+      "model": "historical",
+      "forecast_variance": 0.012086186053655178,
+      "volatility_pct": 10.993719140334255
+    },
+    {
+      "asset": "GLD",
+      "model": "ewma",
+      "forecast_variance": 0.06457335053791971,
+      "volatility_pct": 25.411286968180047
+    },
+    {
+      "asset": "QQQ",
+      "model": "ewma",
+      "forecast_variance": 0.1107878015879072,
+      "volatility_pct": 33.28480157487907
+    },
+    {
+      "asset": "SPY",
+      "model": "ewma",
+      "forecast_variance": 0.04335905660029321,
+      "volatility_pct": 20.82283760689047
+    },
+    {
+      "asset": "TLT",
+      "model": "ewma",
+      "forecast_variance": 0.010983409222475232,
+      "volatility_pct": 10.48017615428063
+    },
+    {
+      "asset": "GLD",
+      "model": "har",
+      "forecast_variance": 0.06386048189064604,
+      "volatility_pct": 25.270631549418397
+    },
+    {
+      "asset": "QQQ",
+      "model": "har",
+      "forecast_variance": 0.09454150254465858,
+      "volatility_pct": 30.74760194627519
+    },
+    {
+      "asset": "SPY",
+      "model": "har",
+      "forecast_variance": 0.044620679732629745,
+      "volatility_pct": 21.12360758313545
+    },
+    {
+      "asset": "TLT",
+      "model": "har",
+      "forecast_variance": 0.01436460800370789,
+      "volatility_pct": 11.985244262720677
+    },
+    {
+      "asset": "GLD",
+      "model": "pooled",
+      "forecast_variance": 0.06520501175417448,
+      "volatility_pct": 25.53527202795664
+    },
+    {
+      "asset": "QQQ",
+      "model": "pooled",
+      "forecast_variance": 0.12923384387360462,
+      "volatility_pct": 35.9491090117133
+    },
+    {
+      "asset": "SPY",
+      "model": "pooled",
+      "forecast_variance": 0.060283719548890814,
+      "volatility_pct": 24.552743135725347
+    },
+    {
+      "asset": "TLT",
+      "model": "pooled",
+      "forecast_variance": 0.012915139671593294,
+      "volatility_pct": 11.36447960603269
+    },
+    {
+      "asset": "GLD",
+      "model": "pooled_macro",
+      "forecast_variance": 0.06208643003186368,
+      "volatility_pct": 24.917148719679723
+    },
+    {
+      "asset": "QQQ",
+      "model": "pooled_macro",
+      "forecast_variance": 0.13927408373019765,
+      "volatility_pct": 37.31944315369639
+    },
+    {
+      "asset": "SPY",
+      "model": "pooled_macro",
+      "forecast_variance": 0.057639782034329776,
+      "volatility_pct": 24.008286493277645
+    },
+    {
+      "asset": "TLT",
+      "model": "pooled_macro",
+      "forecast_variance": 0.011196198789257913,
+      "volatility_pct": 10.58120918858422
+    },
+    {
+      "asset": "GLD",
+      "model": "gmm_mixture",
+      "forecast_variance": 0.0663741660894628,
+      "volatility_pct": 25.763184214972885
+    },
+    {
+      "asset": "QQQ",
+      "model": "gmm_mixture",
+      "forecast_variance": 0.1452745546330264,
+      "volatility_pct": 38.11489926958045
+    },
+    {
+      "asset": "SPY",
+      "model": "gmm_mixture",
+      "forecast_variance": 0.04179911234695975,
+      "volatility_pct": 20.444831216461473
+    },
+    {
+      "asset": "TLT",
+      "model": "gmm_mixture",
+      "forecast_variance": 0.008001223607027172,
+      "volatility_pct": 8.944955900968528
+    },
+    {
+      "asset": "GLD",
+      "model": "gmm_pooled_probabilities",
+      "forecast_variance": 0.06053881831974916,
+      "volatility_pct": 24.604637432758313
+    },
+    {
+      "asset": "QQQ",
+      "model": "gmm_pooled_probabilities",
+      "forecast_variance": 0.13106436539284935,
+      "volatility_pct": 36.20281279028597
+    },
+    {
+      "asset": "SPY",
+      "model": "gmm_pooled_probabilities",
+      "forecast_variance": 0.06779087075535488,
+      "volatility_pct": 26.03668004092589
+    },
+    {
+      "asset": "TLT",
+      "model": "gmm_pooled_probabilities",
+      "forecast_variance": 0.010401579120389455,
+      "volatility_pct": 10.198813225267662
+    },
+    {
+      "asset": "GLD",
+      "model": "hmm_mixture",
+      "forecast_variance": 0.056114923710799014,
+      "volatility_pct": 23.68858875298379
+    },
+    {
+      "asset": "QQQ",
+      "model": "hmm_mixture",
+      "forecast_variance": 0.19409370797037698,
+      "volatility_pct": 44.056067456183264
+    },
+    {
+      "asset": "SPY",
+      "model": "hmm_mixture",
+      "forecast_variance": 0.0480934405718092,
+      "volatility_pct": 21.930216727567743
+    },
+    {
+      "asset": "TLT",
+      "model": "hmm_mixture",
+      "forecast_variance": 0.0077005848347463084,
+      "volatility_pct": 8.775297621588859
+    },
+    {
+      "asset": "GLD",
+      "model": "hmm_pooled_probabilities",
+      "forecast_variance": 0.059144058581118986,
+      "volatility_pct": 24.319551513364505
+    },
+    {
+      "asset": "QQQ",
+      "model": "hmm_pooled_probabilities",
+      "forecast_variance": 0.1218556798824468,
+      "volatility_pct": 34.907832915041695
+    },
+    {
+      "asset": "SPY",
+      "model": "hmm_pooled_probabilities",
+      "forecast_variance": 0.05893566700120725,
+      "volatility_pct": 24.276669252845878
+    },
+    {
+      "asset": "TLT",
+      "model": "hmm_pooled_probabilities",
+      "forecast_variance": 0.0086737867183626,
+      "volatility_pct": 9.31331665861448
+    }
+  ],
+  "regimes": {
+    "gmm": {
+      "probabilities": [
+        1.993196740838685e-14,
+        0.1697699114297743,
+        0.830230088570206
+      ],
+      "reliable": true,
+      "fit_end": "2026-10-30"
+    },
+    "hmm": {
+      "probabilities": [
+        7.390490669873789e-07,
+        0.4912651666719965,
+        0.5087340942789362
+      ],
+      "reliable": true,
+      "fit_end": "2026-10-30"
+    }
+  },
+  "expert_contributions": [
+    {
+      "asset": "GLD",
+      "gate": "gmm",
+      "state": 0,
+      "probability": 1.993196740838685e-14,
+      "expert_variance": 0.07004737436496253,
+      "weighted_variance": 1.3961819828855057e-15,
+      "fallback": false
+    },
+    {
+      "asset": "GLD",
+      "gate": "gmm",
+      "state": 1,
+      "probability": 0.1697699114297743,
+      "expert_variance": 0.05032514435729803,
+      "weighted_variance": 0.008543695300229092,
+      "fallback": false
+    },
+    {
+      "asset": "GLD",
+      "gate": "gmm",
+      "state": 2,
+      "probability": 0.830230088570206,
+      "expert_variance": 0.06965595632510257,
+      "weighted_variance": 0.057830470789232306,
+      "fallback": false
+    },
+    {
+      "asset": "QQQ",
+      "gate": "gmm",
+      "state": 0,
+      "probability": 1.993196740838685e-14,
+      "expert_variance": 0.11004104144632229,
+      "weighted_variance": 2.1933344516930423e-15,
+      "fallback": false
+    },
+    {
+      "asset": "QQQ",
+      "gate": "gmm",
+      "state": 1,
+      "probability": 0.1697699114297743,
+      "expert_variance": 0.09909224393491074,
+      "weighted_variance": 0.016822881476207387,
+      "fallback": false
+    },
+    {
+      "asset": "QQQ",
+      "gate": "gmm",
+      "state": 2,
+      "probability": 0.830230088570206,
+      "expert_variance": 0.15471816177854011,
+      "weighted_variance": 0.12845167315681683,
+      "fallback": false
+    },
+    {
+      "asset": "SPY",
+      "gate": "gmm",
+      "state": 0,
+      "probability": 1.993196740838685e-14,
+      "expert_variance": 0.059848234594774376,
+      "weighted_variance": 1.1928930613925331e-15,
+      "fallback": false
+    },
+    {
+      "asset": "SPY",
+      "gate": "gmm",
+      "state": 1,
+      "probability": 0.1697699114297743,
+      "expert_variance": 0.04333823021581281,
+      "weighted_variance": 0.007357527505261709,
+      "fallback": false
+    },
+    {
+      "asset": "SPY",
+      "gate": "gmm",
+      "state": 2,
+      "probability": 0.830230088570206,
+      "expert_variance": 0.04148438525157643,
+      "weighted_variance": 0.03444158484169685,
+      "fallback": false
+    },
+    {
+      "asset": "TLT",
+      "gate": "gmm",
+      "state": 0,
+      "probability": 1.993196740838685e-14,
+      "expert_variance": 0.013376637546428132,
+      "weighted_variance": 2.6662270360920937e-16,
+      "fallback": false
+    },
+    {
+      "asset": "TLT",
+      "gate": "gmm",
+      "state": 1,
+      "probability": 0.1697699114297743,
+      "expert_variance": 0.010270010144698258,
+      "weighted_variance": 0.0017435387126483067,
+      "fallback": false
+    },
+    {
+      "asset": "TLT",
+      "gate": "gmm",
+      "state": 2,
+      "probability": 0.830230088570206,
+      "expert_variance": 0.0075372899398953004,
+      "weighted_variance": 0.0062576848943785976,
+      "fallback": false
+    },
+    {
+      "asset": "GLD",
+      "gate": "hmm",
+      "state": 0,
+      "probability": 7.390490669873789e-07,
+      "expert_variance": 0.053351271804853134,
+      "weighted_variance": 3.9429207649966767e-08,
+      "fallback": false
+    },
+    {
+      "asset": "GLD",
+      "gate": "hmm",
+      "state": 1,
+      "probability": 0.4912651666719965,
+      "expert_variance": 0.0545106301073985,
+      "weighted_variance": 0.026779173785106674,
+      "fallback": false
+    },
+    {
+      "asset": "GLD",
+      "gate": "hmm",
+      "state": 2,
+      "probability": 0.5087340942789362,
+      "expert_variance": 0.05766413304393173,
+      "weighted_variance": 0.029335710496484688,
+      "fallback": false
+    },
+    {
+      "asset": "QQQ",
+      "gate": "hmm",
+      "state": 0,
+      "probability": 7.390490669873789e-07,
+      "expert_variance": 0.08242005757468418,
+      "weighted_variance": 6.09124666516164e-08,
+      "fallback": false
+    },
+    {
+      "asset": "QQQ",
+      "gate": "hmm",
+      "state": 1,
+      "probability": 0.4912651666719965,
+      "expert_variance": 0.16030758932048497,
+      "weighted_variance": 0.07875353458631401,
+      "fallback": false
+    },
+    {
+      "asset": "QQQ",
+      "gate": "hmm",
+      "state": 2,
+      "probability": 0.5087340942789362,
+      "expert_variance": 0.22671984002777673,
+      "weighted_variance": 0.11534011247159631,
+      "fallback": false
+    },
+    {
+      "asset": "SPY",
+      "gate": "hmm",
+      "state": 0,
+      "probability": 7.390490669873789e-07,
+      "expert_variance": 0.04339478338944587,
+      "weighted_variance": 3.207087417608938e-08,
+      "fallback": false
+    },
+    {
+      "asset": "SPY",
+      "gate": "hmm",
+      "state": 1,
+      "probability": 0.4912651666719965,
+      "expert_variance": 0.045010425441121014,
+      "weighted_variance": 0.022112054156309787,
+      "fallback": false
+    },
+    {
+      "asset": "SPY",
+      "gate": "hmm",
+      "state": 2,
+      "probability": 0.5087340942789362,
+      "expert_variance": 0.05107059785613621,
+      "weighted_variance": 0.02598135434462524,
+      "fallback": false
+    },
+    {
+      "asset": "TLT",
+      "gate": "hmm",
+      "state": 0,
+      "probability": 7.390490669873789e-07,
+      "expert_variance": 0.0071406626918714584,
+      "weighted_variance": 5.277300100099187e-09,
+      "fallback": false
+    },
+    {
+      "asset": "TLT",
+      "gate": "hmm",
+      "state": 1,
+      "probability": 0.4912651666719965,
+      "expert_variance": 0.007802048248527805,
+      "weighted_variance": 0.0038328745331959705,
+      "fallback": false
+    },
+    {
+      "asset": "TLT",
+      "gate": "hmm",
+      "state": 2,
+      "probability": 0.5087340942789362,
+      "expert_variance": 0.007602606288324752,
+      "weighted_variance": 0.0038677050242502376,
+      "fallback": false
+    }
+  ],
+  "feature_context": [
+    {
+      "asset": "GLD",
+      "trailing_21_session_volatility_pct": 24.481281920777963,
+      "five_session_return_pct": 4.70515214228202,
+      "63_session_drawdown_pct": -12.976853636109453,
+      "10Y_minus_2Y_pct_points": 0.32,
+      "inflation_yoy_pct": 3.717250844268993
+    },
+    {
+      "asset": "QQQ",
+      "trailing_21_session_volatility_pct": 32.86458437341772,
+      "five_session_return_pct": -4.980523271128723,
+      "63_session_drawdown_pct": -13.63241466177535,
+      "10Y_minus_2Y_pct_points": 0.32,
+      "inflation_yoy_pct": 3.717250844268993
+    },
+    {
+      "asset": "SPY",
+      "trailing_21_session_volatility_pct": 19.84688418121623,
+      "five_session_return_pct": -2.703381340680077,
+      "63_session_drawdown_pct": -5.621949623063327,
+      "10Y_minus_2Y_pct_points": 0.32,
+      "inflation_yoy_pct": 3.717250844268993
+    },
+    {
+      "asset": "TLT",
+      "trailing_21_session_volatility_pct": 10.993719140334255,
+      "five_session_return_pct": 0.097753952388246,
+      "63_session_drawdown_pct": -1.084098918314691,
+      "10Y_minus_2Y_pct_points": 0.32,
+      "inflation_yoy_pct": 3.717250844268993
+    }
+  ],
+  "model_metadata": {
+    "refit_date": "2026-11-02",
+    "train_start": "2021-10-19",
+    "train_end": "2026-10-26",
+    "latest_training_label": "2026-11-02",
+    "states": 3,
+    "seed": 42,
+    "versions": {
+      "numpy": "2.5.4",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "hmmlearn": "0.3.3"
+    },
+    "model_sha256": "8bd089e49700faebcfa17940d31f3480140ec431ccc0e12de2bb5c2334fce26a"
+  },
+  "data_metadata": {
+    "provider": "yahoo",
+    "downloaded_at": "2026-11-09T13:19:49.863414+00:00",
+    "price_sha256": "01215d1eb811f5a347ae696735b0d738ccbe57dab757c78aa3ea8eb3639e91ea",
+    "macro_sha256": "5f0085be80b20cddcb07b0dd69ef9a5bc2ff0b0eb536a09e0ab2dad216188255",
+    "historical_price_vintage": false,
+    "adjustment": "Yahoo Adj Close; retrospective split/dividend adjustments",
+    "macro_availability": "First trading session strictly after each vintage release date"
+  },
+  "publication_note": "Published research snapshot \u00b7 Saved forecasts, not a live market feed."
+}

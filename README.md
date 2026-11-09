@@ -69,3 +69,7 @@ Copy `.env.example` to `.env` and enter your free FRED API key locally. Never co
 - [Delivery tracker and completed checks](TASKS.md)
 
 The application is intended for local research. Public deployment, continuous ingestion and operational monitoring are separate work. Forecasts are not a trading strategy.
+
+## Streamlit Cloud
+
+Deploy `dashboard/app.py` on branch `main`. The dashboard-specific requirements bypass Poetry and omit model-training libraries. A compact public snapshot supplies real saved forecasts, regime probabilities and research results without keys or startup training. See [cloud deployment instructions](docs/STREAMLIT_CLOUD.md).
