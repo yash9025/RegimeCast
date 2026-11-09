@@ -1,0 +1,8 @@
+{
+  "assets": ["SPY", "QQQ", "TLT", "GLD"],
+  "start": "2006-01-01",
+  "calendar": "XNYS",
+  "horizon": 5,
+  "annualization": 252,
+  "seed": 42
+}
