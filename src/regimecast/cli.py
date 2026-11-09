@@ -5,6 +5,7 @@ import hashlib
 import json
 import logging
 from dataclasses import asdict
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pandas as pd
@@ -65,7 +66,7 @@ def main():
         "ingest-macro", help="Download historical FRED vintages using a local key"
     )
     macro_parser.add_argument("--start", default="2005-01-01")
-    macro_parser.add_argument("--end", default="2026-11-09")
+    macro_parser.add_argument("--end", default=datetime.now(UTC).date().isoformat())
     macro_parser.add_argument("--output", type=Path, default=Path("data"))
     analyze_parser = commands.add_parser(
         "analyze", help="Analyze matched prediction ledgers"
@@ -119,6 +120,9 @@ def main():
                 args.output,
                 features=pd.read_parquet(args.runs[0] / "features.parquet"),
             )
+            from regimecast.artifacts import register_analysis
+
+            register_analysis(args.runs, args.output)
             print(args.output)
             return
         if args.command == "backtest":

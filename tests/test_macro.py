@@ -84,3 +84,36 @@ def test_latest_observation_revision_is_not_applied_early():
     ).set_index("date")
     assert features.loc["2024-02-09", "macro_UNRATE"] == 3.5
     assert features.loc["2024-02-12", "macro_UNRATE"] == 3.6
+
+
+def test_macro_refresh_default_uses_current_utc_date(monkeypatch):
+    from datetime import UTC, datetime
+
+    from regimecast.data import macro
+
+    class Clock:
+        @staticmethod
+        def now(tz):
+            return datetime(2026, 1, 2, tzinfo=UTC)
+
+    class Response:
+        status_code = 200
+
+        def json(self):
+            return {
+                "count": 1,
+                "observations": [{"date": "2025-06-01", "UNRATE_20250706": "4.0"}],
+            }
+
+    requests = []
+
+    def get(url, params, timeout):
+        requests.append(params.copy())
+        return Response()
+
+    monkeypatch.setattr(macro, "datetime", Clock)
+    monkeypatch.setattr(macro, "fred_key", lambda: "synthetic-placeholder")
+    monkeypatch.setattr(macro.requests, "get", get)
+    macro.download_vintages(start="2025-01-01", series=("UNRATE",))
+    assert requests[0]["observation_end"] == "2026-01-02"
+    assert requests[0]["realtime_end"] == "2026-01-02"

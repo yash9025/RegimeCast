@@ -50,7 +50,8 @@ def parse_sparse_observations(observations, series):
     return records
 
 
-def download_vintages(start="2005-01-01", end="2026-11-09", series=SERIES):
+def download_vintages(start="2005-01-01", end=None, series=SERIES):
+    end = end or datetime.now(UTC).date().isoformat()
     key = fred_key()
     records = []
     for name in series:

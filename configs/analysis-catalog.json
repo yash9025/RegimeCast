@@ -1,0 +1,14 @@
+[
+  {
+    "period": "development",
+    "price_sha256": "01215d1eb811f5a347ae696735b0d738ccbe57dab757c78aa3ea8eb3639e91ea",
+    "macro_sha256": "5f0085be80b20cddcb07b0dd69ef9a5bc2ff0b0eb536a09e0ab2dad216188255",
+    "path": "reports/macro-analysis"
+  },
+  {
+    "period": "holdout",
+    "price_sha256": "01215d1eb811f5a347ae696735b0d738ccbe57dab757c78aa3ea8eb3639e91ea",
+    "macro_sha256": "5f0085be80b20cddcb07b0dd69ef9a5bc2ff0b0eb536a09e0ab2dad216188255",
+    "path": "reports/holdout-analysis"
+  }
+]

@@ -13,6 +13,7 @@ import numpy as np
 import pandas as pd
 from threadpoolctl import threadpool_limits
 
+from regimecast.artifacts import matching_analyses
 from regimecast.data.macro import load_vintages, macro_features
 from regimecast.data.prices import load_snapshot, sessions
 from regimecast.evaluation.walkforward import BacktestConfig, training_rows
@@ -292,10 +293,9 @@ def prepare_forecasts(
         "latest_bundle": str(bundle_path.resolve()),
         "regime_history": history_paths,
         "evaluation_runs": discover_evaluations(output, data["sha256"]),
-        "analysis": {
-            "development": "reports/macro-analysis",
-            "holdout": "reports/holdout-analysis",
-        },
+        "analysis": matching_analyses(
+            output, data["sha256"], bundle["data_metadata"].get("macro_sha256")
+        ),
     }
     temporary = output / "catalog.tmp.json"
     temporary.write_text(json.dumps(catalog, indent=2), encoding="utf-8")

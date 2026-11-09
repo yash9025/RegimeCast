@@ -138,3 +138,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Tracking uses a local SQLite database and local artifacts; telemetry is disabled.
 - Test verifies completed runs, persisted metrics and duplicate-registration prevention.
 - All scientific, API, dashboard and research dependency versions are pinned for CI.
+
+### Refresh consistency safeguards
+- Dashboard analyses are registered against exact price/macro data versions; mismatched reports are not attached.
+- Reproduced analyses register locally without overwriting released research reports.
+- Macro refresh defaults now use the current UTC date; historical experiments still use explicit frozen cutoffs.
+- Focused tests cover stale-version rejection and the refresh-date default.
