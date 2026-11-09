@@ -20,7 +20,7 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 ## Phase 4 â€” Evidence
 - [x] Matched evaluations, paired date-block bootstrap, stress slices
 - [x] Point-in-time macro ingestion and pooled-model ablation
-- [ ] Development experiments and locked holdout protocol
+- [x] Development experiments, 2020 regime-count sensitivity, and frozen 2024–2025 holdout
 
 ## Phase 5 â€” Product
 - [ ] Saved-artifact FastAPI and dashboard
@@ -107,3 +107,10 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Both GMM and HMM resumed probabilities exactly match full regeneration in tests.
 - End-to-end cached backtest preserves all historical probability rows.
 - This changes runtime and provenance only; learner defaults and frozen holdout settings stay fixed.
+
+### Phase 4 completion
+- Frozen 2024–2025 holdout evaluated once for GMM, HMM and pooled-macro variants; settings unchanged.
+- Matched model rows, training-label maturity and identical protocol checksums verified.
+- Holdout metrics, paired block intervals, annual/stress results and worst errors are in reports/holdout-analysis.
+- Two/three/four-state diagnostics completed for 2020 only, explicitly labeled in reports/regime-count-sensitivity.csv.
+- Price and macro hypotheses are reported without requiring outperformance or claiming trading profitability.

@@ -1,0 +1,309 @@
+{
+  "status": "frozen holdout completed once with unchanged settings",
+  "dates": 502,
+  "rows": 18072,
+  "first": "2024-01-02",
+  "last": "2025-12-31",
+  "protocol_sha256": "d5141b886b989ec444146e3535ebd54bb005bb09f2f72a25c902ac92ee890d66",
+  "mean_qlike": {
+    "ewma": 0.4296187073058484,
+    "gmm_mixture": 0.4163164267767304,
+    "gmm_pooled_probabilities": 0.37411917645709514,
+    "har": 0.4096415107807272,
+    "historical": 0.47285053753740053,
+    "hmm_mixture": 0.3945942031049263,
+    "hmm_pooled_probabilities": 0.37641137033962385,
+    "pooled": 0.3693643058496293,
+    "pooled_macro": 0.40112199277391825
+  },
+  "metrics": [
+    {
+      "model": "ewma",
+      "asset": "GLD",
+      "observations": 502,
+      "qlike": 0.36132701510016246,
+      "volatility_mae_pct_points": 5.31844887124668,
+      "volatility_rmse_pct_points": 7.498731215558559
+    },
+    {
+      "model": "ewma",
+      "asset": "QQQ",
+      "observations": 502,
+      "qlike": 0.5043520031662362,
+      "volatility_mae_pct_points": 7.457532166885614,
+      "volatility_rmse_pct_points": 11.22173915495973
+    },
+    {
+      "model": "ewma",
+      "asset": "SPY",
+      "observations": 502,
+      "qlike": 0.5761297951318921,
+      "volatility_mae_pct_points": 6.077260560275691,
+      "volatility_rmse_pct_points": 9.89798733567245
+    },
+    {
+      "model": "ewma",
+      "asset": "TLT",
+      "observations": 502,
+      "qlike": 0.2766660158251029,
+      "volatility_mae_pct_points": 3.855912741218829,
+      "volatility_rmse_pct_points": 4.952508233178579
+    },
+    {
+      "model": "gmm_mixture",
+      "asset": "GLD",
+      "observations": 502,
+      "qlike": 0.4615565433036798,
+      "volatility_mae_pct_points": 5.017030491735429,
+      "volatility_rmse_pct_points": 7.5768547187604325
+    },
+    {
+      "model": "gmm_mixture",
+      "asset": "QQQ",
+      "observations": 502,
+      "qlike": 0.43186965144027306,
+      "volatility_mae_pct_points": 5.966894698044506,
+      "volatility_rmse_pct_points": 9.497299444181438
+    },
+    {
+      "model": "gmm_mixture",
+      "asset": "SPY",
+      "observations": 502,
+      "qlike": 0.46342279319578145,
+      "volatility_mae_pct_points": 4.859903382163507,
+      "volatility_rmse_pct_points": 8.417906192647072
+    },
+    {
+      "model": "gmm_mixture",
+      "asset": "TLT",
+      "observations": 502,
+      "qlike": 0.30841671916718744,
+      "volatility_mae_pct_points": 4.184255716527121,
+      "volatility_rmse_pct_points": 5.204563082315088
+    },
+    {
+      "model": "gmm_pooled_probabilities",
+      "asset": "GLD",
+      "observations": 502,
+      "qlike": 0.3747633418853078,
+      "volatility_mae_pct_points": 5.001594851830524,
+      "volatility_rmse_pct_points": 7.285989440489293
+    },
+    {
+      "model": "gmm_pooled_probabilities",
+      "asset": "QQQ",
+      "observations": 502,
+      "qlike": 0.38852636518824685,
+      "volatility_mae_pct_points": 5.920778402876467,
+      "volatility_rmse_pct_points": 9.285139049045895
+    },
+    {
+      "model": "gmm_pooled_probabilities",
+      "asset": "SPY",
+      "observations": 502,
+      "qlike": 0.4353712882536902,
+      "volatility_mae_pct_points": 4.889887382211771,
+      "volatility_rmse_pct_points": 8.353629333539235
+    },
+    {
+      "model": "gmm_pooled_probabilities",
+      "asset": "TLT",
+      "observations": 502,
+      "qlike": 0.2978157105011356,
+      "volatility_mae_pct_points": 4.116517401578038,
+      "volatility_rmse_pct_points": 5.123732905393372
+    },
+    {
+      "model": "har",
+      "asset": "GLD",
+      "observations": 502,
+      "qlike": 0.3387863756386043,
+      "volatility_mae_pct_points": 5.3281603942027775,
+      "volatility_rmse_pct_points": 7.329926487834066
+    },
+    {
+      "model": "har",
+      "asset": "QQQ",
+      "observations": 502,
+      "qlike": 0.4681490189280908,
+      "volatility_mae_pct_points": 6.676471986398551,
+      "volatility_rmse_pct_points": 10.25115209429875
+    },
+    {
+      "model": "har",
+      "asset": "SPY",
+      "observations": 502,
+      "qlike": 0.5310053867857133,
+      "volatility_mae_pct_points": 5.806841901823297,
+      "volatility_rmse_pct_points": 9.124798827458804
+    },
+    {
+      "model": "har",
+      "asset": "TLT",
+      "observations": 502,
+      "qlike": 0.3006252617705004,
+      "volatility_mae_pct_points": 4.476761993095962,
+      "volatility_rmse_pct_points": 5.497070677554857
+    },
+    {
+      "model": "historical",
+      "asset": "GLD",
+      "observations": 502,
+      "qlike": 0.4148613700527904,
+      "volatility_mae_pct_points": 5.445446496888104,
+      "volatility_rmse_pct_points": 7.804879388588077
+    },
+    {
+      "model": "historical",
+      "asset": "QQQ",
+      "observations": 502,
+      "qlike": 0.5396274516697999,
+      "volatility_mae_pct_points": 7.223585562687887,
+      "volatility_rmse_pct_points": 11.448981766225053
+    },
+    {
+      "model": "historical",
+      "asset": "SPY",
+      "observations": 502,
+      "qlike": 0.628550813818218,
+      "volatility_mae_pct_points": 5.842851237639512,
+      "volatility_rmse_pct_points": 10.202774564571612
+    },
+    {
+      "model": "historical",
+      "asset": "TLT",
+      "observations": 502,
+      "qlike": 0.30836251460879394,
+      "volatility_mae_pct_points": 3.9804574901848233,
+      "volatility_rmse_pct_points": 5.158734433233239
+    },
+    {
+      "model": "hmm_mixture",
+      "asset": "GLD",
+      "observations": 502,
+      "qlike": 0.4001654715453423,
+      "volatility_mae_pct_points": 5.081882142187215,
+      "volatility_rmse_pct_points": 7.428211398078147
+    },
+    {
+      "model": "hmm_mixture",
+      "asset": "QQQ",
+      "observations": 502,
+      "qlike": 0.41960271309389185,
+      "volatility_mae_pct_points": 6.145463280641988,
+      "volatility_rmse_pct_points": 9.13788543353374
+    },
+    {
+      "model": "hmm_mixture",
+      "asset": "SPY",
+      "observations": 502,
+      "qlike": 0.438958604691192,
+      "volatility_mae_pct_points": 4.9274090463839855,
+      "volatility_rmse_pct_points": 8.11889836077804
+    },
+    {
+      "model": "hmm_mixture",
+      "asset": "TLT",
+      "observations": 502,
+      "qlike": 0.31965002308927914,
+      "volatility_mae_pct_points": 4.359883614829583,
+      "volatility_rmse_pct_points": 5.391739270974649
+    },
+    {
+      "model": "hmm_pooled_probabilities",
+      "asset": "GLD",
+      "observations": 502,
+      "qlike": 0.36845367582466837,
+      "volatility_mae_pct_points": 5.066221680101626,
+      "volatility_rmse_pct_points": 7.297859976108884
+    },
+    {
+      "model": "hmm_pooled_probabilities",
+      "asset": "QQQ",
+      "observations": 502,
+      "qlike": 0.3982469541548721,
+      "volatility_mae_pct_points": 6.006262361515408,
+      "volatility_rmse_pct_points": 9.1822970929136
+    },
+    {
+      "model": "hmm_pooled_probabilities",
+      "asset": "SPY",
+      "observations": 502,
+      "qlike": 0.4389300608639608,
+      "volatility_mae_pct_points": 4.972320138231869,
+      "volatility_rmse_pct_points": 8.335904904735791
+    },
+    {
+      "model": "hmm_pooled_probabilities",
+      "asset": "TLT",
+      "observations": 502,
+      "qlike": 0.3000147905149941,
+      "volatility_mae_pct_points": 4.13465225808056,
+      "volatility_rmse_pct_points": 5.15528769308221
+    },
+    {
+      "model": "pooled",
+      "asset": "GLD",
+      "observations": 502,
+      "qlike": 0.37276021841994916,
+      "volatility_mae_pct_points": 5.160216784037517,
+      "volatility_rmse_pct_points": 7.392668711686506
+    },
+    {
+      "model": "pooled",
+      "asset": "QQQ",
+      "observations": 502,
+      "qlike": 0.3788444050486038,
+      "volatility_mae_pct_points": 5.9044049807101215,
+      "volatility_rmse_pct_points": 9.012707829459076
+    },
+    {
+      "model": "pooled",
+      "asset": "SPY",
+      "observations": 502,
+      "qlike": 0.4208405556649719,
+      "volatility_mae_pct_points": 4.888920317335137,
+      "volatility_rmse_pct_points": 8.20450669059869
+    },
+    {
+      "model": "pooled",
+      "asset": "TLT",
+      "observations": 502,
+      "qlike": 0.3050120442649923,
+      "volatility_mae_pct_points": 4.268486465393482,
+      "volatility_rmse_pct_points": 5.225235559496246
+    },
+    {
+      "model": "pooled_macro",
+      "asset": "GLD",
+      "observations": 502,
+      "qlike": 0.4454981918498633,
+      "volatility_mae_pct_points": 5.328859576428246,
+      "volatility_rmse_pct_points": 7.789120194996676
+    },
+    {
+      "model": "pooled_macro",
+      "asset": "QQQ",
+      "observations": 502,
+      "qlike": 0.42458122732292686,
+      "volatility_mae_pct_points": 6.352711694982131,
+      "volatility_rmse_pct_points": 9.82390824486932
+    },
+    {
+      "model": "pooled_macro",
+      "asset": "SPY",
+      "observations": 502,
+      "qlike": 0.44393132988557443,
+      "volatility_mae_pct_points": 5.043286996539596,
+      "volatility_rmse_pct_points": 8.615235729324514
+    },
+    {
+      "model": "pooled_macro",
+      "asset": "TLT",
+      "observations": 502,
+      "qlike": 0.29047722203730847,
+      "volatility_mae_pct_points": 4.277664944749912,
+      "volatility_rmse_pct_points": 5.314768252044766
+    }
+  ]
+}
