@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from dataclasses import asdict, dataclass
 
 import numpy as np
@@ -50,6 +51,9 @@ def backtest(frame, columns, config=BacktestConfig(), gates=None):
             train = training_rows(frame, cutoff, config)
             if train.date.nunique() < config.min_train_sessions:
                 raise ValueError(f"Insufficient training history at {cutoff.date()}")
+            logging.getLogger(__name__).info(
+                "Forecast refit %s: %d training sessions", month, train.date.nunique()
+            )
             pooled = LogVarianceModel(columns, seed=config.seed).fit(train)
             har = LogVarianceModel(HAR_FEATURES, linear=True, seed=config.seed).fit(
                 train

@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import logging
 from dataclasses import asdict
 from pathlib import Path
 
@@ -19,6 +20,13 @@ from regimecast.data.prices import (
 
 
 def main():
+    logger = logging.getLogger("regimecast")
+    if not logger.handlers:
+        handler = logging.StreamHandler()
+        handler.setFormatter(logging.Formatter("%(message)s"))
+        logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
     parser = argparse.ArgumentParser(
         description="RegimeCast reproducible research pipeline"
     )

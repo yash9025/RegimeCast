@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import logging
+
 import numpy as np
 import pandas as pd
 from hmmlearn.hmm import GaussianHMM
@@ -147,6 +149,10 @@ def causal_probabilities(
         ):
             cutoff = observations.index.min()
             history = state.loc[state.index < cutoff].tail(window)
+            if not diagnostics or month.month == 1:
+                logging.getLogger(__name__).info(
+                    "%s gate archive: %s (%d states)", kind, month, states
+                )
             fallback_reason = None
             try:
                 gate = GaussianGate(kind, states, seed).fit(history, previous_centers)
