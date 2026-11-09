@@ -167,3 +167,10 @@ def test_csv_cli_roundtrip(monkeypatch, prices, tmp_path, capsys):
     monkeypatch.setattr(sys, "argv", ["regimecast", "validate", str(directory)])
     main()
     assert json.loads(capsys.readouterr().out)["rows"] == len(prices)
+
+
+def test_non_session_request_boundaries():
+    actual = sessions("2006-01-01", "2006-01-08")
+    assert actual[0] == pd.Timestamp("2006-01-03")
+    assert actual[-1] == pd.Timestamp("2006-01-06")
+    assert len(actual) == 4
