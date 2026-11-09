@@ -1,7 +1,10 @@
 """RegimeCast: a local market-risk research workspace."""
 import os
+import sys
 from html import escape
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 import altair as alt
 import pandas as pd
@@ -127,6 +130,8 @@ def main():
         st.caption("Research results do not imply trading profitability.")
     st.markdown('<div class="eyebrow"><span class="eyebrow-dot"></span> THE MARKET RISK WORKSPACE</div>', unsafe_allow_html=True)
     st.title("Risk, in perspective.")
+    if latest and latest.get("publication_note"):
+        st.caption(latest["publication_note"])
     st.markdown('<div class="hero-description">A measured view of next-week volatility, market states, and the evidence behind every model.</div>', unsafe_allow_html=True)
     if latest:
         st.markdown(f'<div class="hero-meta"><span class="pill">AS OF <strong>{escape(latest["as_of"])}</strong></span><span class="pill">HORIZON <strong>5 trading sessions</strong></span><span class="pill">COVERAGE <strong>SPY · QQQ · TLT · GLD</strong></span></div>', unsafe_allow_html=True)

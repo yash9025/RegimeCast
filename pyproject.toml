@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "regimecast"
 version = "0.1.0"
 description = "Causal regime-aware five-session volatility forecasting"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<4"
 dependencies = ["numpy>=2,<3", "pandas>=2.2,<3", "pyarrow>=18", "scikit-learn>=1.7,<2", "exchange-calendars>=4.11,<5", "yfinance>=0.2.65,<2", "hmmlearn>=0.3.3,<0.4", "requests>=2.32,<3"]
 
 [project.optional-dependencies]

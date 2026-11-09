@@ -80,9 +80,21 @@ def _ledger(paths, mtimes):
 class ArtifactStore:
     def __init__(self, catalog=Path("artifacts/catalog.json")):
         self.catalog = Path(catalog)
+        if self.catalog == Path("artifacts/catalog.json") and not self.catalog.exists():
+            self.catalog = Path(__file__).resolve().parents[3] / "dashboard/snapshot/catalog.json"
 
     def settings(self):
-        return strict_json(self.catalog)
+        settings = strict_json(self.catalog)
+        if settings.get("relative_paths"):
+            base = self.catalog.resolve().parent
+            settings["latest_bundle"] = str((base / settings["latest_bundle"]).resolve())
+            for field in ("regime_history", "analysis", "metrics"):
+                settings[field] = {k: str((base / v).resolve()) for k, v in settings.get(field, {}).items()}
+            settings["evaluation_runs"] = {
+                k: [str((base / v).resolve()) for v in paths]
+                for k, paths in settings.get("evaluation_runs", {}).items()
+            }
+        return settings
 
     def latest(self):
         return load_bundle(Path(self.settings()["latest_bundle"]))
@@ -106,6 +118,9 @@ class ArtifactStore:
         return frame.copy()
 
     def metrics(self, period="development"):
+        saved = self.settings().get("metrics", {}).get(period)
+        if saved:
+            return pd.read_csv(saved)
         return summarize(self.history(period))
 
     def regime_history(self, kind):

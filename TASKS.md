@@ -158,3 +158,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Replaced raw explanation rows with asset/model selection, probability tiles, variance-share charts and formatted expert breakdowns.
 - Added readable chart axes, compact scorecards, human-facing labels and controlled number precision.
 - No tests or dashboard execution performed, as explicitly requested for this UI change.
+
+### Streamlit Cloud deployment dependencies
+- Added dashboard-specific requirements to bypass Poetry and omit training dependencies.
+- Bounded project Python support below Python 4 and made source imports work without editable installation.
+- Added portable published-snapshot fallback and precomputed metric loading.
+- No training or extended tests run for this deployment change.

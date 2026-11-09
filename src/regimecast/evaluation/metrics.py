@@ -3,7 +3,7 @@
 import numpy as np
 import pandas as pd
 
-from regimecast.models.baselines import FLOOR
+FLOOR = 1e-10  # Keep display-only metrics independent of training libraries.
 
 
 def qlike(actual, forecast):
