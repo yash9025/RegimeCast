@@ -9,6 +9,6 @@ jobs:
         with:
           python-version: '3.13'
       - run: python -m pip install -r requirements-lock.txt
-      - run: python -m pip install -e ".[dev,api]" --no-deps
+      - run: python -m pip install -e ".[dev,api,dashboard]" --no-deps
       - run: python -m pytest -q
-      - run: ruff check src tests
+      - run: ruff check src dashboard tests

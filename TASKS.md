@@ -120,3 +120,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - API tests pass for filtering, limits, missing/corrupt artifacts and completed-session freshness.
 - Requests serve saved results and never train models.
 - Corrected lock generation to use the isolated project environment and include API dependencies in CI.
+
+### Phase 5B — dashboard
+- Four views implemented: forecasts, market states, research evidence and explanations.
+- Displays forecast as-of dates, stale-data status, uncertainty limitations and explicit synthetic demo labels.
+- Streamlit render test passes with four tabs and four forecast cards, using saved test artifacts only.
+- Dashboard shipped independently of offline model preparation.

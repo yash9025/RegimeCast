@@ -12,6 +12,7 @@ dependencies = ["numpy>=2,<3", "pandas>=2.2,<3", "pyarrow>=18", "scikit-learn>=1
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.12", "httpx==0.28.1"]
 api = ["fastapi==0.162.2", "uvicorn==0.54.0"]
+dashboard = ["streamlit==1.67.0"]
 
 [project.scripts]
 regimecast = "regimecast.cli:main"
