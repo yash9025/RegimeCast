@@ -8,9 +8,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - [x] 1C Four-asset real-data ingestion and validation
 
 ## Phase 2 â€” Baselines
-- [ ] Causal features and exact five-session labels
-- [ ] Historical/EWMA/HAR/pooled ML models
-- [ ] Purged walk-forward prediction ledger and leakage tests
+- [x] Causal features and exact five-session labels
+- [x] Historical/EWMA/HAR/pooled ML models
+- [x] Purged walk-forward prediction ledger and leakage tests
 
 ## Phase 3 â€” Regimes and experts
 - [ ] GMM and forward-filtered HMM
@@ -45,3 +45,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Yahoo retry succeeded: 20,980 observations, four assets, 2006-01-03 through 2026-11-06.
 - Checksum reload and complete session coverage verified with no validation warnings.
 - Data remains local and ignored by Git; its manifest summary is in reports/phase1-data-validation.json.
+
+### Phase 2A implementation
+- 22 tests pass, including future-price invariance, exact target checks, label maturity, matched rows, and holdout protection.
+- Features, four baselines, monthly rolling refits and immutable run artifacts implemented.
+- Full real-data development integration run is in progress; Phase 2 acceptance awaits its verification.
+- Forecast cutoff fixed to 16:30 America/New_York; 2024 onward remains untouched by evaluation.

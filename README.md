@@ -46,3 +46,13 @@ Retrospectively adjusted prices are **not** point-in-time vintages. Publication 
 ## Forecast definition
 
 For daily log returns r, the variance target at session t is `252 / 5 * sum(r[t+j]**2 for j in 1..5)`. The dashboard will display `100 * sqrt(variance)` as annualized volatility percent. This daily-return proxy is noisy; it is not an intraday realized-volatility estimator.
+
+## Development baselines
+
+```powershell
+.\.venv\Scripts\regimecast backtest data/raw/REPLACE_WITH_SNAPSHOT_DIRECTORY --start 2013-01-01 --end 2024-01-01
+```
+
+The command writes an immutable run directory with predictions, features, per-asset metrics and configuration/provenance. Models are historical variance, EWMA, log-HAR and pooled histogram gradient boosting. Features use lagged/current close information only. Forecast issuance is conservatively defined as 16:30 America/New_York on each session. Labels must have fully matured by each monthly refit; training uses the most recent 1,260 eligible sessions. The initial feature warmup is excluded.
+
+No hyperparameters have been tuned. The fixed development defaults leave 2024 onward locked, including the two full calendar years 2024–2025 and the subsequent partial year. Do not select models using that period. Volatility MAE/RMSE are in annualized percentage points; QLIKE uses annualized variance.

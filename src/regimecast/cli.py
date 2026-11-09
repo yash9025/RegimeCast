@@ -37,8 +37,29 @@ def main():
         "validate", help="Verify snapshot checksum and coverage"
     )
     validate.add_argument("snapshot", type=Path)
+    backtest_parser = commands.add_parser(
+        "backtest", help="Run price-only development baselines"
+    )
+    backtest_parser.add_argument("snapshot", type=Path)
+    backtest_parser.add_argument("--start", default="2013-01-01")
+    backtest_parser.add_argument(
+        "--end", default="2024-01-01", help="Exclusive; holdout begins 2024"
+    )
+    backtest_parser.add_argument("--output", type=Path, default=Path("artifacts"))
     args = parser.parse_args()
     try:
+        if args.command == "backtest":
+            from regimecast.evaluation.walkforward import BacktestConfig
+            from regimecast.pipeline import run_backtest
+
+            print(
+                run_backtest(
+                    args.snapshot,
+                    args.output,
+                    BacktestConfig(start=args.start, end=args.end),
+                )
+            )
+            return
         if args.command == "validate":
             frame = load_snapshot(args.snapshot)
             print(
