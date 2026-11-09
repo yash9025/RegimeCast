@@ -1,0 +1,144 @@
+{
+  "status": "verified development baseline; no holdout evaluation",
+  "forecast_rows": 44288,
+  "sessions": 2768,
+  "monthly_refits": 132,
+  "first_forecast": "2013-01-02",
+  "last_forecast": "2023-12-29",
+  "source_commit": "82dfc851d42a0c423029b517ef28c105812a8493",
+  "data_sha256": "01215d1eb811f5a347ae696735b0d738ccbe57dab757c78aa3ea8eb3639e91ea",
+  "predictions_sha256": "f6561b1548cd5a366388557bdb4e7b32680756e63d10ea293636c60e1f86a195",
+  "deterministic_rerun": true,
+  "label_maturity_verified": true,
+  "metrics": [
+    {
+      "model": "ewma",
+      "asset": "GLD",
+      "observations": 2768,
+      "qlike": 0.4325978159493914,
+      "volatility_mae_pct_points": 4.833150273905601,
+      "volatility_rmse_pct_points": 6.77978138303327
+    },
+    {
+      "model": "ewma",
+      "asset": "QQQ",
+      "observations": 2768,
+      "qlike": 0.4782801846454478,
+      "volatility_mae_pct_points": 6.563129013999944,
+      "volatility_rmse_pct_points": 9.484480117554314
+    },
+    {
+      "model": "ewma",
+      "asset": "SPY",
+      "observations": 2768,
+      "qlike": 0.5603960924755632,
+      "volatility_mae_pct_points": 5.496570356192105,
+      "volatility_rmse_pct_points": 8.45569725549106
+    },
+    {
+      "model": "ewma",
+      "asset": "TLT",
+      "observations": 2768,
+      "qlike": 0.3040187711500859,
+      "volatility_mae_pct_points": 4.076496738687203,
+      "volatility_rmse_pct_points": 6.178800828309336
+    },
+    {
+      "model": "har",
+      "asset": "GLD",
+      "observations": 2768,
+      "qlike": 0.409205879300008,
+      "volatility_mae_pct_points": 5.115033791440779,
+      "volatility_rmse_pct_points": 6.868897598669063
+    },
+    {
+      "model": "har",
+      "asset": "QQQ",
+      "observations": 2768,
+      "qlike": 0.4587824491140191,
+      "volatility_mae_pct_points": 6.366894810996085,
+      "volatility_rmse_pct_points": 9.280047229550846
+    },
+    {
+      "model": "har",
+      "asset": "SPY",
+      "observations": 2768,
+      "qlike": 0.5271257051483595,
+      "volatility_mae_pct_points": 5.552438888227635,
+      "volatility_rmse_pct_points": 8.39330332945753
+    },
+    {
+      "model": "har",
+      "asset": "TLT",
+      "observations": 2768,
+      "qlike": 0.2964362387658405,
+      "volatility_mae_pct_points": 4.300723315918698,
+      "volatility_rmse_pct_points": 6.139094413387463
+    },
+    {
+      "model": "historical",
+      "asset": "GLD",
+      "observations": 2768,
+      "qlike": 0.4885303937325537,
+      "volatility_mae_pct_points": 5.003133406309308,
+      "volatility_rmse_pct_points": 7.0996151855672425
+    },
+    {
+      "model": "historical",
+      "asset": "QQQ",
+      "observations": 2768,
+      "qlike": 0.546687179005912,
+      "volatility_mae_pct_points": 6.706619541468512,
+      "volatility_rmse_pct_points": 9.823838353733764
+    },
+    {
+      "model": "historical",
+      "asset": "SPY",
+      "observations": 2768,
+      "qlike": 0.6530341977353112,
+      "volatility_mae_pct_points": 5.587080834575132,
+      "volatility_rmse_pct_points": 8.787277169904684
+    },
+    {
+      "model": "historical",
+      "asset": "TLT",
+      "observations": 2768,
+      "qlike": 0.3198174554982291,
+      "volatility_mae_pct_points": 4.125257996677158,
+      "volatility_rmse_pct_points": 6.481807009137924
+    },
+    {
+      "model": "pooled",
+      "asset": "GLD",
+      "observations": 2768,
+      "qlike": 0.430148797114295,
+      "volatility_mae_pct_points": 4.830407048990031,
+      "volatility_rmse_pct_points": 6.851485592321513
+    },
+    {
+      "model": "pooled",
+      "asset": "QQQ",
+      "observations": 2768,
+      "qlike": 0.5428239246306903,
+      "volatility_mae_pct_points": 6.006053070950541,
+      "volatility_rmse_pct_points": 9.506052610070464
+    },
+    {
+      "model": "pooled",
+      "asset": "SPY",
+      "observations": 2768,
+      "qlike": 0.5718372487251463,
+      "volatility_mae_pct_points": 5.094430951624791,
+      "volatility_rmse_pct_points": 8.56071341938463
+    },
+    {
+      "model": "pooled",
+      "asset": "TLT",
+      "observations": 2768,
+      "qlike": 0.3131725001973552,
+      "volatility_mae_pct_points": 4.025126834936346,
+      "volatility_rmse_pct_points": 6.080341897443434
+    }
+  ],
+  "finding": "HAR has lower QLIKE than pooled boosting for all four assets; retain both benchmarks."
+}

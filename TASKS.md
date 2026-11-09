@@ -51,3 +51,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Features, four baselines, monthly rolling refits and immutable run artifacts implemented.
 - Full real-data development integration run is in progress; Phase 2 acceptance awaits its verification.
 - Forecast cutoff fixed to 16:30 America/New_York; 2024 onward remains untouched by evaluation.
+
+### Phase 2 completion
+- Full development integration verified: 44,288 predictions, 2,768 sessions, 132 monthly refits, 2013-01-02 through 2023-12-29.
+- Clean committed rerun produced identical forecast values; forecast timestamps and label-maturity assertions pass.
+- 22 unit/integration tests pass. Aggregate metrics are in reports/phase2-baseline-validation.json.
+- HAR beats pooled boosting on QLIKE for every asset; no mixture outperformance is assumed.
