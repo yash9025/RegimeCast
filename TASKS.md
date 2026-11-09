@@ -152,3 +152,9 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - README, research report, model/data cards and reproduction guide completed.
 - User requested immediate completion without further extended tests. No final aggregate suite or additional clean-environment run was performed; earlier passing checks are retained above.
 - Seed/expanding-window studies and public deployment remain documented extensions.
+
+### Dashboard visual refinement
+- Redesigned the workspace with a navy sidebar, restrained teal accents, compact navigation and consistent card spacing.
+- Replaced raw explanation rows with asset/model selection, probability tiles, variance-share charts and formatted expert breakdowns.
+- Added readable chart axes, compact scorecards, human-facing labels and controlled number precision.
+- No tests or dashboard execution performed, as explicitly requested for this UI change.

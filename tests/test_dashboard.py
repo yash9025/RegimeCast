@@ -10,6 +10,6 @@ def test_dashboard_renders_saved_research(artifact_catalog, monkeypatch):
     ).run(timeout=30)
     assert not app.exception
     assert len(app.tabs) == 4
-    assert app.title[0].value == "One week ahead."
+    assert app.title[0].value == "Risk, in perspective."
     assert len(app.metric) == 4
     assert any("DEMO" in warning.value for warning in app.warning)
