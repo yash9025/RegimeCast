@@ -13,8 +13,8 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - [x] Purged walk-forward prediction ledger and leakage tests
 
 ## Phase 3 â€” Regimes and experts
-- [ ] GMM and forward-filtered HMM
-- [ ] Causal historical probabilities and stable state alignment
+- [x] GMM and forward-filtered HMM
+- [x] Causal historical probabilities and stable state alignment
 - [ ] Soft weighted experts, pooled-plus-probabilities and fallbacks
 
 ## Phase 4 â€” Evidence
@@ -57,3 +57,10 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Clean committed rerun produced identical forecast values; forecast timestamps and label-maturity assertions pass.
 - 22 unit/integration tests pass. Aggregate metrics are in reports/phase2-baseline-validation.json.
 - HAR beats pooled boosting on QLIKE for every asset; no mixture outperformance is assumed.
+
+### Phase 3A implementation
+- GMM and HMM gates use monthly past-only fits, training-only scaling and state matching.
+- HMM inference uses an explicit forward recursion; no smoothing or Viterbi historical assignments.
+- Historical probabilities are generated once per historical cutoff; later observations cannot rewrite them.
+- 25 tests pass, including hand-checked filter updates, incremental filtering and gate future-invariance for both estimators.
+- Convergence failures and numerical failures are recorded; unreliable gates will trigger pooled-model inference fallback.

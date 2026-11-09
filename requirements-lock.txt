@@ -39,3 +39,4 @@ tzdata==2026.6
 urllib3==2.8.0
 websockets==17.4
 yfinance==1.8.0
+hmmlearn==0.3.3

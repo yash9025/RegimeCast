@@ -7,7 +7,7 @@ name = "regimecast"
 version = "0.1.0"
 description = "Causal regime-aware five-session volatility forecasting"
 requires-python = ">=3.11"
-dependencies = ["numpy>=2,<3", "pandas>=2.2,<3", "pyarrow>=18", "scikit-learn>=1.7,<2", "exchange-calendars>=4.11,<5", "yfinance>=0.2.65,<2"]
+dependencies = ["numpy>=2,<3", "pandas>=2.2,<3", "pyarrow>=18", "scikit-learn>=1.7,<2", "exchange-calendars>=4.11,<5", "yfinance>=0.2.65,<2", "hmmlearn>=0.3.3,<0.4"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.12"]
