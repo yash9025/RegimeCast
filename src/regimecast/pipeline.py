@@ -23,11 +23,42 @@ def run_backtest(
     gate_kind=None,
     states=3,
     macro_snapshot=None,
+    allow_holdout=False,
 ):
+    protocol = None
     if config.end > "2024-01-01":
-        raise ValueError(
-            "2024 onward is locked holdout; development runs must end by 2024-01-01"
+        if not allow_holdout:
+            raise ValueError(
+                "2024 onward is locked holdout; development runs must end by 2024-01-01"
+            )
+        protocol_path = Path("configs/holdout-protocol.json")
+        protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
+        expected = (
+            protocol["holdout_start"],
+            protocol["holdout_end_exclusive"],
+            protocol["train_sessions"],
+            protocol["seed"],
+            protocol["states"],
         )
+        actual = (config.start, config.end, config.train_sessions, config.seed, states)
+        if (
+            actual != expected
+            or config.min_train_sessions != protocol["train_sessions"]
+        ):
+            raise ValueError("Holdout configuration differs from the frozen protocol")
+    source_metadata = {}
+    try:
+        source_metadata["git_commit"] = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], text=True
+        ).strip()
+        source_metadata["git_dirty"] = bool(
+            subprocess.check_output(["git", "status", "--porcelain"], text=True).strip()
+        )
+    except (OSError, subprocess.CalledProcessError):
+        source_metadata["git_commit"] = None
+    source_metadata["source_sha256"] = hashlib.sha256(
+        b"".join(p.read_bytes() for p in sorted(Path(__file__).parent.rglob("*.py")))
+    ).hexdigest()
     prices = load_snapshot(snapshot)
     features, columns = make_features(prices)
     macro_manifest = None
@@ -99,15 +130,13 @@ def run_backtest(
             ).hexdigest(),
         }
     )
-    try:
-        metadata["git_commit"] = subprocess.check_output(
-            ["git", "rev-parse", "HEAD"], text=True
-        ).strip()
-        metadata["git_dirty"] = bool(
-            subprocess.check_output(["git", "status", "--porcelain"], text=True).strip()
-        )
-    except (OSError, subprocess.CalledProcessError):
-        metadata["git_commit"] = None
+    metadata.update(source_metadata)
+    if protocol is not None:
+        metadata["evaluation_kind"] = "locked chronological holdout; frozen defaults"
+        metadata["holdout_protocol"] = protocol
+        metadata["protocol_sha256"] = hashlib.sha256(
+            Path("configs/holdout-protocol.json").read_bytes()
+        ).hexdigest()
     (directory / "run.json").write_text(
         json.dumps(metadata, indent=2), encoding="utf-8"
     )

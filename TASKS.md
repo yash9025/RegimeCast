@@ -19,7 +19,7 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 
 ## Phase 4 â€” Evidence
 - [x] Matched evaluations, paired date-block bootstrap, stress slices
-- [ ] Point-in-time macro ablation (historical-vintage ingestion verified)
+- [x] Point-in-time macro ingestion and pooled-model ablation
 - [ ] Development experiments and locked holdout protocol
 
 ## Phase 5 â€” Product
@@ -93,3 +93,11 @@ Each increment is tested before committing and pushing. Checkboxes describe veri
 - Key remains only in ignored .env; provider errors do not log request URLs.
 - Evidence tools and development summaries are complete. Macro ablation, regime sensitivity and locked holdout remain pending.
 - GitHub authentication must be restored in the execution environment before queued commits can be pushed.
+
+### Phase 4B macro results and frozen protocol
+- Macro features evaluated on the same 2,768 sessions; unchanged baselines pass matched-run checks.
+- Overall macro QLIKE difference versus pooled price-only is +0.006979; 21-session paired CI includes zero.
+- Protocol frozen in configs/holdout-protocol.json before evaluating 2024–2025. Three states and fixed defaults retained.
+- Regime-count diagnostic is limited to 2020 and will be labeled accordingly; it does not choose the holdout model.
+- Provenance now captures the source commit, dirty state and source digest at the beginning of each run.
+- 36 tests, lint and dependency compatibility checks pass. GitHub device sign-in restored; queued commits pushed.

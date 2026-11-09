@@ -185,3 +185,15 @@ def test_macro_pipeline_keeps_rows_and_records_vintages(history, tmp_path):
     assert len(metadata["macro"]["sha256"]) == 64
     assert any(name.startswith("macro_") for name in metadata["features"])
     assert ledger.groupby("model").size().nunique() == 1
+
+
+def test_holdout_requires_exact_frozen_protocol(tmp_path):
+    from regimecast.pipeline import run_backtest
+
+    with pytest.raises(ValueError, match="frozen protocol"):
+        run_backtest(
+            tmp_path,
+            tmp_path,
+            BacktestConfig(start="2023-01-01", end="2025-01-01"),
+            allow_holdout=True,
+        )

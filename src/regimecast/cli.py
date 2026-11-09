@@ -49,6 +49,9 @@ def main():
     backtest_parser.add_argument("--gate", choices=["gmm", "hmm"])
     backtest_parser.add_argument("--states", type=int, choices=[2, 3, 4], default=3)
     backtest_parser.add_argument("--macro-snapshot", type=Path)
+    backtest_parser.add_argument(
+        "--holdout", action="store_true", help="Run only the frozen holdout protocol"
+    )
     macro_parser = commands.add_parser(
         "ingest-macro", help="Download historical FRED vintages using a local key"
     )
@@ -89,6 +92,7 @@ def main():
                     gate_kind=args.gate,
                     states=args.states,
                     macro_snapshot=args.macro_snapshot,
+                    allow_holdout=args.holdout,
                 )
             )
             return

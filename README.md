@@ -6,7 +6,7 @@ Does recognizing market regimes improve next-five-session volatility forecasts o
 
 ## Status
 
-Phase 1 complete: 17 tests pass and all four real asset histories validate (20,980 observations). No forecasting or performance claims yet. See [TASKS.md](TASKS.md) for verified progress and [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for the research protocol.
+Phases 1–3 complete. The project has 36 passing tests, validated real prices and historical macro vintages. Development evidence currently favors simpler benchmarks over both three-state mixtures; Phase 4 holdout and sensitivity work is in progress. See [TASKS.md](TASKS.md) for verified progress and [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for the research protocol.
 
 ## Setup (PowerShell)
 
@@ -81,3 +81,14 @@ Create a free FRED API key and store it locally as `FRED_API_KEY=...` in `.env`.
 The macro adapter requests sparse new/revised observations in four-year batches, preserving the release dates encoded by FRED. Values become usable on the first trading session strictly after the vintage date. A revision to an older month never displaces a newer observation. Missing macro values stay missing with indicators; boosting handles them natively. Regime gate features remain price-only for the initial controlled macro ablation.
 
 Analysis uses paired date-level QLIKE differences with all assets retained together in circular moving blocks (5/21/63 sessions). Reports include annual results, training-defined stress slices, every-fifth-session non-overlapping targets and worst errors. Confidence intervals are exploratory and unadjusted for multiple comparisons. Existing full-period development evidence is in [reports/development-analysis](reports/development-analysis).
+
+## Frozen holdout
+
+[configs/holdout-protocol.json](configs/holdout-protocol.json) freezes the 2024–2025 holdout before evaluation. The CLI rejects holdout dates unless `--holdout` is explicitly supplied, and then requires the exact frozen dates, training window, seed and three-state setting. No hyperparameter search has been performed. Scheduled refits may learn from labels that have matured by that time.
+
+```powershell
+.\.venv\Scripts\regimecast backtest data/raw/PRICE_SNAPSHOT --start 2024-01-01 --end 2026-01-01 --holdout --gate gmm
+.\.venv\Scripts\regimecast backtest data/raw/PRICE_SNAPSHOT --start 2024-01-01 --end 2026-01-01 --holdout --gate hmm
+```
+
+The two/four-state sensitivity diagnostic uses 2020 only, comparing those runs with the 2020 subset of the full three-state development experiment. It cannot establish stability across the entire sample. Final model choices must not be retuned after holdout results are observed.

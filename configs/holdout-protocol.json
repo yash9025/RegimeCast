@@ -1,0 +1,66 @@
+{
+  "protocol_version": 1,
+  "status": "frozen before holdout evaluation",
+  "development_start": "2013-01-01",
+  "development_end_exclusive": "2024-01-01",
+  "holdout_start": "2024-01-01",
+  "holdout_end_exclusive": "2026-01-01",
+  "assets": [
+    "SPY",
+    "QQQ",
+    "TLT",
+    "GLD"
+  ],
+  "horizon_sessions": 5,
+  "train_sessions": 1260,
+  "refit_frequency": "monthly",
+  "seed": 42,
+  "states": 3,
+  "primary_comparisons": [
+    "gmm_mixture vs pooled",
+    "hmm_mixture vs pooled"
+  ],
+  "additional_benchmarks": [
+    "historical",
+    "ewma",
+    "har",
+    "pooled probability ablations",
+    "pooled_macro"
+  ],
+  "learner": {
+    "family": "HistGradientBoostingRegressor",
+    "max_iter": 100,
+    "max_leaf_nodes": 15,
+    "learning_rate": 0.06,
+    "l2_regularization": 1.0,
+    "early_stopping": false
+  },
+  "primary_metric": "QLIKE",
+  "secondary_metrics": [
+    "volatility MAE",
+    "volatility RMSE"
+  ],
+  "uncertainty": {
+    "method": "paired circular date-block bootstrap",
+    "blocks": [
+      5,
+      21,
+      63
+    ],
+    "replicates": 2000,
+    "intervals": "exploratory marginal 95%; no multiple-comparison-adjusted superiority claim"
+  },
+  "regime_sensitivity": {
+    "evaluation_start": "2020-01-01",
+    "evaluation_end_exclusive": "2021-01-01",
+    "counts": [
+      2,
+      3,
+      4
+    ],
+    "note": "Limited to a predeclared stress-year diagnostic; three states remain fixed for holdout."
+  },
+  "macro_ablation": "Add released historical vintages to the pooled model; keep dates and price-only gates fixed.",
+  "tuning": "No hyperparameter search; fixed defaults. No holdout-driven changes permitted.",
+  "operational_refits": "Use newly matured historical labels at scheduled monthly refits, without retuning."
+}

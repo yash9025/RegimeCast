@@ -1,0 +1,13 @@
+{
+  "benchmark": "pooled",
+  "blocks": [
+    5,
+    21,
+    63
+  ],
+  "replicates": 2000,
+  "method": "circular moving-block bootstrap of paired date-average QLIKE differences",
+  "interpretation": "Negative differences favor candidate. Intervals are exploratory and unadjusted for multiple comparisons.",
+  "nonoverlapping": "Every fifth common session; five-session forward targets do not overlap.",
+  "units": "annualized variance QLIKE; volatility errors in percentage points"
+}
